@@ -40,7 +40,7 @@ namespace kpl {
             std::optional<const std::string> mAliasFor;
 
             /* NOTE: Needs to be synced with generateDefaultTypes() */
-            static const uint8_t NUM_DEFAULT_SUPPORTED_TYPES = 9;
+            static const uint8_t NUM_DEFAULT_SUPPORTED_TYPES;
             static std::vector<DataType> mDefaultSupportedTypes;
         };
     }

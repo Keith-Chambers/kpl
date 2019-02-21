@@ -1,6 +1,10 @@
 #include "catch2/catch.hpp"
 
-#include <pair.h>
+#include <kpl/pair.h>
+
+//#include <kpl/datatype.h>
+
+//#include <kpl/logger.h>
 
 class NotDefaultConstructable
 {
@@ -24,6 +28,9 @@ TEST_CASE( "Pair Tests", "[Something]" )
 {
     int firstInt = 5;
     int secondInt = 10;
+    
+    // REMOVE
+    //kpl::Logger * logger = kpl::Logger::getInstance();
     
     /* Simple test of getters */
     kpl::Pair<int, int> intPair(firstInt, secondInt);

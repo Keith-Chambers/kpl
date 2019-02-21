@@ -5,6 +5,7 @@ namespace kpl {
     {
         // const char * VOID_TYPE_NAME = "void";
         std::vector<DataType> DataType::mDefaultSupportedTypes;
+        const uint8_t DataType::NUM_DEFAULT_SUPPORTED_TYPES = 9;
 
         DataType::DataType(std::string name, size_t szBits, bool isPrimative)
             : mName { name }, mSzBits { szBits }, mIsAlias { false },

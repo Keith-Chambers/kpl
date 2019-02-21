@@ -1,4 +1,4 @@
-#include "variable.h"
+#include "kpl/variable.h"
 
 namespace kpl {
     namespace reflection

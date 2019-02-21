@@ -1,4 +1,4 @@
-#include "accessbridge.h"
+#include "kpl/accessbridge.h"
 
 namespace kpl
 {

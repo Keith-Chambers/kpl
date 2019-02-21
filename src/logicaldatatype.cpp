@@ -1,6 +1,6 @@
-#include "logicaldatatype.h"
+#include "kpl/logicaldatatype.h"
 
-#include "variable.h"
+#include "kpl/variable.h"
 
 namespace kpl {
     namespace reflection

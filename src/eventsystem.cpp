@@ -1,4 +1,4 @@
-#include "eventsystem.h"
+#include "kpl/eventsystem.h"
 
 namespace kpl
 {

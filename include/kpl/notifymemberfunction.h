@@ -1,7 +1,7 @@
 #ifndef NOTIFYMEMBERFUNCTION_H
 #define NOTIFYMEMBERFUNCTION_H
 
-#include "eventnotifier.h"
+#include "kpl/eventnotifier.h"
 
 namespace kpl
 {

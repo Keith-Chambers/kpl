@@ -15,8 +15,8 @@
 #include <cstdint>
 #include <cstring>
 
-#include <util.h>
-#include <pair.h>
+#include <kpl/util.h>
+#include <kpl/pair.h>
 
 /*  Use case: When you are resonably sure that you want to store a small amount of elements
  *  but need to ability to store far more to be safe */

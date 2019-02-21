@@ -1,8 +1,8 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
 
-#include "logicaldatatype.h"
-#include "datatype.h"
+#include "kpl/logicaldatatype.h"
+#include "kpl/datatype.h"
 
 /* Variable - Represents a named data type used in code
  * Supports cardinality so that arrays can be defined.

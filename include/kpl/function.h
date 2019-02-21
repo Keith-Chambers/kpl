@@ -4,8 +4,8 @@
 #include <vector>
 #include <string>
 
-#include "datatype.h"
-#include "variable.h"
+#include "kpl/datatype.h"
+#include "kpl/variable.h"
 
 namespace kpl {
     namespace reflection {

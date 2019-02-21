@@ -7,7 +7,7 @@
 #include <vector>
 #include <stdlib.h>
 
-#include "datasource.h"
+#include "kpl/datasource.h"
 
 namespace kpl
 {

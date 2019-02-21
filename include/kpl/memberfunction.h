@@ -1,7 +1,7 @@
 #ifndef MEMBERFUNCTOR_H
 #define MEMBERFUNCTOR_H
 
-#include "datasource.h"
+#include "kpl/datasource.h"
 
 namespace kpl
 {

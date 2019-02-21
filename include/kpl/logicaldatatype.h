@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <iostream>
 
-#include "datatype.h"
+#include "kpl/datatype.h"
 
 /* LogicalDataType - Represents a data type used in code by name and size.
  * Wrapper class for DataType that allows user-defined(non-primative), hierarchical types.

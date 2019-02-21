@@ -7,7 +7,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-#include "eventnotifier.h"
+#include "kpl/eventnotifier.h"
 
 namespace kpl
 {

@@ -8,7 +8,7 @@
 #include "rapidjson/rapidjson.h"
 #include "rapidjson/document.h"
 
-#include "kfile.h"
+#include "kpl/kfile.h"
 
 namespace kpl
 {

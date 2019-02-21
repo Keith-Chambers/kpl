@@ -1,9 +1,9 @@
 #ifndef PAIR_H
 #define PAIR_H
 
-#define ANAGAMI_DEBUG
+//#define ANAGAMI_DEBUG
 
-#ifdef ANAGAMI_DEBUG
+#ifdef PAIR_DEBUG
 
 #include <fmt/format.h>
 #include <cstdio>
@@ -31,7 +31,7 @@ namespace kpl {
             new (  reinterpret_cast<void*>( mFirstMemBlock) ) T1( std::move(t1) );
             new (  reinterpret_cast<void*>( mSecondMemBlock) ) T2( std::move(t2) );
             
-            #ifdef ANAGAMI_DEBUG
+            #ifdef PAIR_DEBUG
                 fmt::print("Move Constructor Invoked for kpl::Pair\n");
                 fmt::print("State Info: {:b}\n", mStateInfo);
             #endif
@@ -44,7 +44,7 @@ namespace kpl {
             new (  reinterpret_cast<void*>( mFirstMemBlock) ) T1( t1 );
             new (  reinterpret_cast<void*>( mSecondMemBlock) ) T2( t2 );
             
-            #ifdef ANAGAMI_DEBUG
+            #ifdef PAIR_DEBUG
                 fmt::print("Value Constructor Invoked for kpl::Pair\n");
                 fmt::print("State Info: {:b}\n", mStateInfo);
             #endif
@@ -101,7 +101,7 @@ namespace kpl {
         /* Getters mFirst */
         const T1 * cPtr1() const
         {
-            #ifdef ANAGAMI_DEBUG
+            #ifdef PAIR_DEBUG
                 if(! (mStateInfo & FIRST_CONSTRUCTED) )
                 {
                     fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );
@@ -114,7 +114,7 @@ namespace kpl {
 
         T1 * ptr1()
         {
-            #ifdef ANAGAMI_DEBUG
+            #ifdef PAIR_DEBUG
                 if(! (mStateInfo & FIRST_CONSTRUCTED) )
                 {
                     fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );
@@ -127,7 +127,7 @@ namespace kpl {
 
         T1 t1() const
         {
-            #ifdef ANAGAMI_DEBUG
+            #ifdef PAIR_DEBUG
                 if(! (mStateInfo & FIRST_CONSTRUCTED) )
                 {
                     fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );
@@ -140,7 +140,7 @@ namespace kpl {
 
         const T1 cT1() const
         {
-            #ifdef ANAGAMI_DEBUG
+            #ifdef PAIR_DEBUG
                 if(! (mStateInfo & FIRST_CONSTRUCTED) )
                 {
                     fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );
@@ -154,7 +154,7 @@ namespace kpl {
         /* Getters mSecond */
         const T2 * cPtr2() const
         {
-            #ifdef ANAGAMI_DEBUG
+            #ifdef PAIR_DEBUG
                 if(! (mStateInfo & SECOND_CONSTRUCTED) )
                 {
                     fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );
@@ -167,7 +167,7 @@ namespace kpl {
 
         T2 * ptr2()
         {
-            #ifdef ANAGAMI_DEBUG
+            #ifdef PAIR_DEBUG
                 if(! (mStateInfo & SECOND_CONSTRUCTED) )
                 {
                     fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );
@@ -180,7 +180,7 @@ namespace kpl {
 
         T2 t2() const
         {
-            #ifdef ANAGAMI_DEBUG
+            #ifdef PAIR_DEBUG
                 if(! (mStateInfo & SECOND_CONSTRUCTED) )
                 {
                     fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );
@@ -193,7 +193,7 @@ namespace kpl {
 
         const T2 cT2() const
         {
-            #ifdef ANAGAMI_DEBUG
+            #ifdef PAIR_DEBUG
                 if(! (mStateInfo & SECOND_CONSTRUCTED) )
                 {
                     fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );

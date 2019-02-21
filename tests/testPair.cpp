@@ -2,35 +2,12 @@
 
 #include <kpl/pair.h>
 
-//#include <kpl/datatype.h>
-
-//#include <kpl/logger.h>
-
-class NotDefaultConstructable
-{
-public:
-    NotDefaultConstructable() = delete;
-    NotDefaultConstructable(int a, char b)
-        : mA { a }, mB { b }
-    {
-        
-    }
-    
-    int getA(){ return mA; }
-    char getB(){ return mB; }
-    
-private:
-    int mA;
-    char mB;
-};
+#include "testextras.h"
 
 TEST_CASE( "Pair Tests", "[Something]" )
 {
     int firstInt = 5;
     int secondInt = 10;
-    
-    // REMOVE
-    //kpl::Logger * logger = kpl::Logger::getInstance();
     
     /* Simple test of getters */
     kpl::Pair<int, int> intPair(firstInt, secondInt);

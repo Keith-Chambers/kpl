@@ -60,25 +60,103 @@ namespace kpl {
             return (mStateInfo & SECOND_CONSTRUCTED);
         }
 
-        void setT1WithCopy(const T1& t1)
+        T1& getT1Ref()
+        {
+        #ifdef PAIR_DEBUG
+            if(! (mStateInfo & FIRST_CONSTRUCTED) )
+            {
+                fmt::print(stderr, "Error: T1 not set in kpl::Pair\n" );
+                assert(mStateInfo & FIRST_CONSTRUCTED);
+            }
+        #endif
+
+            return *reinterpret_cast<T1 *>(mFirstMemBlock);
+        }
+
+        T2& getT2Ref()
+        {
+        #ifdef PAIR_DEBUG
+            if(! (mStateInfo & SECOND_CONSTRUCTED) )
+            {
+                fmt::print(stderr, "Error: T2 not set in kpl::Pair\n" );
+                assert(mStateInfo & SECOND_CONSTRUCTED);
+            }
+        #endif
+
+            return *reinterpret_cast<T2 *>(mSecondMemBlock);
+        }
+
+        const T1& getCT1Ref()
+        {
+        #ifdef PAIR_DEBUG
+            if(! (mStateInfo & FIRST_CONSTRUCTED) )
+            {
+                fmt::print(stderr, "Error: T1 not set in kpl::Pair\n" );
+                assert(mStateInfo & FIRST_CONSTRUCTED);
+            }
+        #endif
+
+            return *reinterpret_cast<const T1 *>(mFirstMemBlock);
+        }
+
+        const T2& getCT2Ref()
+        {
+        #ifdef PAIR_DEBUG
+            if(! (mStateInfo & SECOND_CONSTRUCTED) )
+            {
+                fmt::print(stderr, "Error: T2 not set in kpl::Pair\n" );
+                assert(mStateInfo & SECOND_CONSTRUCTED);
+            }
+        #endif
+
+            return *reinterpret_cast<const T2 *>(mSecondMemBlock);
+        }
+
+        T1 getT1()
+        {
+        #ifdef PAIR_DEBUG
+            if(! (mStateInfo & FIRST_CONSTRUCTED) )
+            {
+                fmt::print(stderr, "Error: T1 not set in kpl::Pair\n" );
+                assert(mStateInfo & FIRST_CONSTRUCTED);
+            }
+        #endif
+
+            return *reinterpret_cast<T1 *>(mFirstMemBlock);
+        }
+
+        T2 getT2()
+        {
+        #ifdef PAIR_DEBUG
+            if(! (mStateInfo & SECOND_CONSTRUCTED) )
+            {
+                fmt::print(stderr, "Error: T2 not set in kpl::Pair\n" );
+                assert(mStateInfo & SECOND_CONSTRUCTED);
+            }
+        #endif
+
+            return *reinterpret_cast<T2 *>(mSecondMemBlock);
+        }
+
+        void setT1(const T1& t1)
         {
             mStateInfo |= FIRST_CONSTRUCTED;
             new (  reinterpret_cast<void*>( mFirstMemBlock) ) T1( t1 );
         }
 
-        void setT2WithCopy(const T2& t2)
+        void setT2(const T2& t2)
         {
             mStateInfo |= SECOND_CONSTRUCTED;
             new (  reinterpret_cast<void*>( mSecondMemBlock) ) T2( t2 );
         }
 
-        void setT1WithMove(T1&& t1)
+        void setT1(T1&& t1)
         {
             mStateInfo |= FIRST_CONSTRUCTED;
             new (  reinterpret_cast<void*>( mFirstMemBlock) ) T1( std::move(t1) );
         }
 
-        void setT2WithMove(T2&& t2)
+        void setT2(T2&& t2)
         {
             mStateInfo |= SECOND_CONSTRUCTED;
             new (  reinterpret_cast<void*>( mSecondMemBlock) ) T2( std::move(t2) );
@@ -96,112 +174,6 @@ namespace kpl {
         {
             mStateInfo |= SECOND_CONSTRUCTED;
             new (  reinterpret_cast<void*>( mSecondMemBlock ) ) T2( static_cast<Ts&&>(args)... );
-        }
-
-        /* Getters mFirst */
-        const T1 * cPtr1() const
-        {
-            #ifdef PAIR_DEBUG
-                if(! (mStateInfo & FIRST_CONSTRUCTED) )
-                {
-                    fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );
-                    assert(mStateInfo & FIRST_CONSTRUCTED);
-                }
-            #endif
-
-            return reinterpret_cast<const T1 *>(mFirstMemBlock);
-        }
-
-        T1 * ptr1()
-        {
-            #ifdef PAIR_DEBUG
-                if(! (mStateInfo & FIRST_CONSTRUCTED) )
-                {
-                    fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );
-                    assert(mStateInfo & FIRST_CONSTRUCTED);
-                }
-            #endif
-
-            return reinterpret_cast<T1 *>(mFirstMemBlock);
-        }
-
-        T1 t1() const
-        {
-            #ifdef PAIR_DEBUG
-                if(! (mStateInfo & FIRST_CONSTRUCTED) )
-                {
-                    fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );
-                    assert(mStateInfo & FIRST_CONSTRUCTED);
-                }
-            #endif
-
-            return *(reinterpret_cast<const T1*>(mFirstMemBlock));
-        }
-
-        const T1 cT1() const
-        {
-            #ifdef PAIR_DEBUG
-                if(! (mStateInfo & FIRST_CONSTRUCTED) )
-                {
-                    fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );
-                    assert(mStateInfo & FIRST_CONSTRUCTED);
-                }
-            #endif
-
-            return *(reinterpret_cast<const T1*>(mFirstMemBlock));
-        }
-
-        /* Getters mSecond */
-        const T2 * cPtr2() const
-        {
-            #ifdef PAIR_DEBUG
-                if(! (mStateInfo & SECOND_CONSTRUCTED) )
-                {
-                    fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );
-                    assert(mStateInfo & SECOND_CONSTRUCTED);
-                }
-            #endif
-
-            return reinterpret_cast<const T2 *>(mSecondMemBlock);
-        }
-
-        T2 * ptr2()
-        {
-            #ifdef PAIR_DEBUG
-                if(! (mStateInfo & SECOND_CONSTRUCTED) )
-                {
-                    fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );
-                    assert(mStateInfo & SECOND_CONSTRUCTED);
-                }
-            #endif
-
-            return reinterpret_cast<T2 *>(mSecondMemBlock);
-        }
-
-        T2 t2() const
-        {
-            #ifdef PAIR_DEBUG
-                if(! (mStateInfo & SECOND_CONSTRUCTED) )
-                {
-                    fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );
-                    assert(mStateInfo & SECOND_CONSTRUCTED);
-                }
-            #endif
-
-            return *(reinterpret_cast<const T2*>(mSecondMemBlock));
-        }
-
-        const T2 cT2() const
-        {
-            #ifdef PAIR_DEBUG
-                if(! (mStateInfo & SECOND_CONSTRUCTED) )
-                {
-                    fmt::print(stderr, "Error: Trying to access unconstructed value in kpl::Pair\n" );
-                    assert(mStateInfo & SECOND_CONSTRUCTED);
-                }
-            #endif
-
-            return *(reinterpret_cast<const T2*>(mSecondMemBlock));
         }
 
     private:

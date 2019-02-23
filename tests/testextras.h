@@ -1,5 +1,5 @@
-#ifndef _INC_TESTEXTRAS_
-#define _INC_TESTEXTRAS_
+#ifndef INC_TESTEXTRAS_
+#define INC_TESTEXTRAS_
 
 class NotDefaultConstructable
 {

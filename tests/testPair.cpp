@@ -12,15 +12,13 @@ TEST_CASE( "Pair Tests", "[Something]" )
     /* Simple test of getters */
     kpl::Pair<int, int> intPair(firstInt, secondInt);
     
-    REQUIRE(*intPair.cPtr1() == firstInt);
-    REQUIRE(*intPair.ptr1() == firstInt);
-    REQUIRE(intPair.cT1() == firstInt);
-    REQUIRE(intPair.t1() == firstInt);
+    REQUIRE(intPair.getT1CRef() == firstInt);
+    REQUIRE(intPair.getT1Ref() == firstInt);
+    REQUIRE(intPair.getT1() == firstInt);
     
-    REQUIRE(*intPair.cPtr2() == secondInt);
-    REQUIRE(*intPair.ptr2() == secondInt);
-    REQUIRE(intPair.cT2() == secondInt);
-    REQUIRE(intPair.t2() == secondInt);
+    REQUIRE(intPair.getT2CRef() == secondInt);
+    REQUIRE(intPair.getT2Ref() == secondInt);
+    REQUIRE(intPair.getT2() == secondInt);
     
     /* Test non constructed pair is valid */
     kpl::Pair<int, int> defaultConstructedPair;
@@ -28,21 +26,20 @@ TEST_CASE( "Pair Tests", "[Something]" )
     REQUIRE(defaultConstructedPair.isT1Set() == false);
     REQUIRE(defaultConstructedPair.isT2Set() == false);
     
-    defaultConstructedPair.setT1WithCopy(firstInt);
+    defaultConstructedPair.setT1(firstInt);
     
     REQUIRE(defaultConstructedPair.isT1Set() == true);
-    REQUIRE(*intPair.cPtr1() == firstInt);
-    REQUIRE(*intPair.ptr1() == firstInt);
-    REQUIRE(intPair.cT1() == firstInt);
-    REQUIRE(intPair.t1() == firstInt);
+    REQUIRE(defaultConstructedPair.getT1CRef() == firstInt);
+    REQUIRE(defaultConstructedPair.getT1Ref() == firstInt);
+    REQUIRE(defaultConstructedPair.getT1() == firstInt);
     
-    defaultConstructedPair.setT2WithCopy(secondInt);
+    defaultConstructedPair.setT2(secondInt);
     REQUIRE(defaultConstructedPair.isT2Set() == true);
     
     /* Test pair with a non default constructable type */
     kpl::Pair<int, NotDefaultConstructable> complexPair;
     complexPair.emplaceT2(5, 'b');
     
-    REQUIRE( complexPair.t2().getA() == 5 );
-    REQUIRE( complexPair.t2().getB() == 'b' );
+    REQUIRE( complexPair.getT2().getA() == 5 );
+    REQUIRE( complexPair.getT2().getB() == 'b' );
 }

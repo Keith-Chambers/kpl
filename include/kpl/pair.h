@@ -50,12 +50,12 @@ namespace kpl {
             #endif
         }
         
-        bool isT1Set()
+        bool isT1Set() const
         {
             return (mStateInfo & FIRST_CONSTRUCTED);
         }
         
-        bool isT2Set()
+        bool isT2Set() const
         {
             return (mStateInfo & SECOND_CONSTRUCTED);
         }
@@ -86,7 +86,7 @@ namespace kpl {
             return *reinterpret_cast<T2 *>(mSecondMemBlock);
         }
 
-        const T1& getCT1Ref()
+        const T1& getT1CRef() const
         {
         #ifdef PAIR_DEBUG
             if(! (mStateInfo & FIRST_CONSTRUCTED) )
@@ -99,7 +99,7 @@ namespace kpl {
             return *reinterpret_cast<const T1 *>(mFirstMemBlock);
         }
 
-        const T2& getCT2Ref()
+        const T2& getT2CRef() const
         {
         #ifdef PAIR_DEBUG
             if(! (mStateInfo & SECOND_CONSTRUCTED) )
@@ -112,7 +112,7 @@ namespace kpl {
             return *reinterpret_cast<const T2 *>(mSecondMemBlock);
         }
 
-        T1 getT1()
+        T1 getT1() const
         {
         #ifdef PAIR_DEBUG
             if(! (mStateInfo & FIRST_CONSTRUCTED) )
@@ -122,10 +122,11 @@ namespace kpl {
             }
         #endif
 
-            return *reinterpret_cast<T1 *>(mFirstMemBlock);
+            const T1 * location = reinterpret_cast<const T1 *>(mFirstMemBlock);
+            return *location;
         }
 
-        T2 getT2()
+        T2 getT2() const
         {
         #ifdef PAIR_DEBUG
             if(! (mStateInfo & SECOND_CONSTRUCTED) )
@@ -135,7 +136,8 @@ namespace kpl {
             }
         #endif
 
-            return *reinterpret_cast<T2 *>(mSecondMemBlock);
+            const T2 * location = reinterpret_cast<const T2 *>(mSecondMemBlock);
+            return *location;
         }
 
         void setT1(const T1& t1)
@@ -178,8 +180,8 @@ namespace kpl {
 
     private:
 
-        static constexpr uint8_t FIRST_CONSTRUCTED = 0b10000000;
-        static constexpr uint8_t SECOND_CONSTRUCTED = 0b01000000;
+        uint8_t FIRST_CONSTRUCTED = 0b10000000;
+        uint8_t SECOND_CONSTRUCTED = 0b01000000;
 
         uint8_t mFirstMemBlock[ sizeof(T1) ];
         uint8_t mSecondMemBlock[ sizeof(T2) ];

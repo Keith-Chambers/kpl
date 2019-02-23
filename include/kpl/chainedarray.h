@@ -363,27 +363,27 @@ namespace kpl{
             kpl::Pair<uint16_t, uint16_t> absoluteIndexPair = translateIndex(index);
             
         #ifdef CHAINED_ARRAY_DEBUG
-            fmt::print("Absolute Index Pair for Raw Index of {} -> {}:{}\n", index, absoluteIndexPair.cT1(), absoluteIndexPair.cT2());
+            fmt::print("Absolute Index Pair for Raw Index of {} -> {}:{}\n", index, absoluteIndexPair.getT1CRef(), absoluteIndexPair.getT2CRef());
         #endif
 
             // Get address from stack memory
-            if(absoluteIndexPair.cT1() == 0)
+            if(absoluteIndexPair.getT1CRef() == 0)
                 return reinterpret_cast<const uint8_t *>(& (mStackBuffer[index * sizeof(T)]));
 
             // Since index has been localised to a memory block, it should not exceed the size of one
-            if(absoluteIndexPair.cT2() > DYNA_BUFFER_SIZE)
+            if(absoluteIndexPair.getT2CRef() > DYNA_BUFFER_SIZE)
             {
             #ifdef CHAINED_ARRAY_DEBUG
 
-                fmt::print(stderr, "Error: index({}) > DYNA_BUFFER_SIZE({}) assert failed in ChainedArray::addrForElement({})\n", absoluteIndexPair.cT2(), DYNA_BUFFER_SIZE, absoluteIndexPair.cT2());
-                assert(absoluteIndexPair.cT2() <= DYNA_BUFFER_SIZE);
+                fmt::print(stderr, "Error: index({}) > DYNA_BUFFER_SIZE({}) assert failed in ChainedArray::addrForElement({})\n", absoluteIndexPair.getT2CRef(), DYNA_BUFFER_SIZE, absoluteIndexPair.getT2CRef());
+                assert(absoluteIndexPair.getT2CRef() <= DYNA_BUFFER_SIZE);
             #endif
 
                 return nullptr;
             }
 
             // Get beginning of correct memory block and move index * sizeof(T) bytes forward
-            return reinterpret_cast<const uint8_t *>(mDynaMemBuffer[absoluteIndexPair.cT1() - 1] + (absoluteIndexPair.cT2() * sizeof(T)));
+            return reinterpret_cast<const uint8_t *>(mDynaMemBuffer[absoluteIndexPair.getT1CRef() - 1] + (absoluteIndexPair.getT2CRef() * sizeof(T)));
         }
 
         /* BufferIndex, RelativeIndex */
@@ -406,12 +406,12 @@ namespace kpl{
 
         T* dataPtrAt(kpl::Pair<uint16_t, uint16_t> indexPair)
         {
-            if(indexPair.cT1() == 0)
+            if(indexPair.getT1CRef() == 0)
             {
-                return reinterpret_cast<T*>(& mStackBuffer[indexPair.cT2() * sizeof(T)]);
+                return reinterpret_cast<T*>(& mStackBuffer[indexPair.getT2CRef() * sizeof(T)]);
             } else
             {
-                return reinterpret_cast<T*>(mDynaMemBuffer[indexPair.cT1() - 1] + (indexPair.cT2() * sizeof(T)));
+                return reinterpret_cast<T*>(mDynaMemBuffer[indexPair.getT1CRef() - 1] + (indexPair.getT2CRef() * sizeof(T)));
             }
         }
         
@@ -466,7 +466,7 @@ namespace kpl{
             uint16_t shiftPointIndex = mNumElements - 1;
         #ifdef CHAINED_ARRAY_DEBUG
             kpl::Pair<uint16_t, uint16_t> testIndexPair = translateIndex(shiftPointIndex);
-            fmt::print("Shift point: raw -> {}, bufferIndex -> {}, localIndex -> {}\n", shiftPointIndex, testIndexPair.cT1(), testIndexPair.cT2());
+            fmt::print("Shift point: raw -> {}, bufferIndex -> {}, localIndex -> {}\n", shiftPointIndex, testIndexPair.getT1CRef(), testIndexPair.getT2CRef());
         #endif
             
             while( true )
@@ -475,7 +475,7 @@ namespace kpl{
                 kpl::Pair<uint16_t, uint16_t> dstIndexPair = translateIndex(shiftPointIndex + shiftSize);
                 
             #ifdef CHAINED_ARRAY_DEBUG
-                fmt::print("Moving data from index {}:{} to {}:{}\n", srcIndexPair.cT1(), srcIndexPair.cT2(), dstIndexPair.cT1(), dstIndexPair.cT2());
+                fmt::print("Moving data from index {}:{} to {}:{}\n", srcIndexPair.getT1CRef(), srcIndexPair.getT2CRef(), dstIndexPair.getT1CRef(), dstIndexPair.getT2CRef());
             #endif
 
                 *dataPtrAt(dstIndexPair) = *dataPtrAt(srcIndexPair);
@@ -500,10 +500,10 @@ namespace kpl{
             // T1: bufferIndex, T2: Relative index
             kpl::Pair<uint16_t, uint16_t> fullIndex = translateIndex(mNumElements);
 
-            if(! ensureBufferAllocated(fullIndex.cT1()))
+            if(! ensureBufferAllocated(fullIndex.getT1Ref()))
             {
             #ifdef CHAINED_ARRAY_DEBUG
-                fmt::print("Error: Failed to allocate DYNAMIC buffer # {} for pushBack op\n", fullIndex.cT1() - 1);
+                fmt::print("Error: Failed to allocate DYNAMIC buffer # {} for pushBack op\n", fullIndex.getT1CRef() - 1);
                 dumpState();
                 assert(false);
             #endif
@@ -511,7 +511,7 @@ namespace kpl{
                 return nullptr;
             }
 
-            return mDynaMemBuffer[fullIndex.cT1() - 1] + ( sizeof(T) * fullIndex.cT2() );
+            return mDynaMemBuffer[fullIndex.getT1CRef() - 1] + ( sizeof(T) * fullIndex.getT2CRef() );
         }
 
         uint8_t * prepareIndexForPlacement(uint16_t index, uint16_t shiftSize = 1)

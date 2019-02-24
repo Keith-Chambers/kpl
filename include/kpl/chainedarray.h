@@ -451,7 +451,8 @@ namespace kpl{
                 kpl::Pair<uint16_t, uint16_t> srcIndexPair = translateIndex(currentIndex);
                 kpl::Pair<uint16_t, uint16_t> dstIndexPair = translateIndex(shiftToIndex);
 
-                *dataPtrAt(dstIndexPair) = *dataPtrAt(srcIndexPair);
+                // *dataPtrAt(dstIndexPair) = *dataPtrAt(srcIndexPair);
+                std::memcpy(dataPtrAt(dstIndexPair), dataPtrAt(srcIndexPair), sizeof(T));
 
                 shiftToIndex++;
                 currentIndex++;

@@ -479,7 +479,7 @@ namespace kpl{
                 fmt::print("Moving data from index {}:{} to {}:{}\n", srcIndexPair.getT1CRef(), srcIndexPair.getT2CRef(), dstIndexPair.getT1CRef(), dstIndexPair.getT2CRef());
             #endif
 
-                *dataPtrAt(dstIndexPair) = *dataPtrAt(srcIndexPair);
+                std::memcpy(dataPtrAt(dstIndexPair), dataPtrAt(srcIndexPair), sizeof(T));
                 
                 if(shiftPointIndex-- == indexFrom)
                     break;

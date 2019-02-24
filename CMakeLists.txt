@@ -25,10 +25,10 @@ set(SOURCES ${SOURCE_PATH}/eventsystem.cpp
             )
 
 add_library(${LIB_NAME} SHARED ${SOURCES})
-#add_library(${STATIC_LIB_NAME} STATIC ${SOURCES})
+add_library(${STATIC_LIB_NAME} STATIC ${SOURCES})
             
 target_include_directories(${LIB_NAME} PRIVATE ${INCLUDE_PATH})
-#target_include_directories(${STATIC_LIB_NAME} PRIVATE ${INCLUDE_PATH})
+target_include_directories(${STATIC_LIB_NAME} PRIVATE ${INCLUDE_PATH})
 
 if(TESTS_PATH)
     set(TEST_PROJECT generated_tests)

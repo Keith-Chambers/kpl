@@ -31,7 +31,7 @@ target_include_directories(${LIB_NAME} PRIVATE ${INCLUDE_PATH})
 #target_include_directories(${STATIC_LIB_NAME} PRIVATE ${INCLUDE_PATH})
 
 if(TESTS_PATH)
-    set(TEST_PROJECT tests)
+    set(TEST_PROJECT generated_tests)
 
     add_executable( ${TEST_PROJECT}
                     ${TESTS_PATH}/main.cpp

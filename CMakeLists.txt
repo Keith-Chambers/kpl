@@ -22,6 +22,8 @@ set(SOURCES ${SOURCE_PATH}/eventsystem.cpp
             ${SOURCE_PATH}/logicaldatatype.cpp
             ${SOURCE_PATH}/util.cpp
             ${SOURCE_PATH}/variable.cpp
+            ${SOURCE_PATH}/pointertype.cpp
+            ${SOURCE_PATH}/referencetype.cpp
             )
 
 add_library(${LIB_NAME} SHARED ${SOURCES})

@@ -17,8 +17,8 @@ namespace kpl {
         class DataType
         {
         public:
-            DataType(std::string name, size_t szBits, bool isPrimative = true);
-            DataType(std::string name, size_t szBits, const std::string aliasFor, bool isPrimative = true);
+            DataType(std::string name, size_t szBits, bool isPrimative = true, bool isPointer = false, bool isReference = false);
+            DataType(std::string name, size_t szBits, const std::string aliasFor, bool isPrimative = true, bool isPointer = false, bool isReference = false);
 
             size_t sizeBits() const;
             std::string name() const;
@@ -38,6 +38,9 @@ namespace kpl {
             const bool mIsAlias;
             const bool mIsPrimative;
             std::optional<const std::string> mAliasFor;
+            const bool mIsPointer;
+            const bool mIsReference;
+
 
             /* NOTE: Needs to be synced with generateDefaultTypes() */
             static const uint8_t NUM_DEFAULT_SUPPORTED_TYPES;

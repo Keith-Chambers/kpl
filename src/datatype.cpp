@@ -7,14 +7,24 @@ namespace kpl {
         std::vector<DataType> DataType::mDefaultSupportedTypes;
         const uint8_t DataType::NUM_DEFAULT_SUPPORTED_TYPES = 9;
 
-        DataType::DataType(std::string name, size_t szBits, bool isPrimative)
-            : mName { name }, mSzBits { szBits }, mIsAlias { false },
-              mIsPrimative { isPrimative }, mAliasFor { std::nullopt }
+        DataType::DataType(std::string name, size_t szBits, bool isPrimative, bool isPointer, bool isReference)
+            : mName { name },
+              mSzBits { szBits },
+              mIsAlias { false },
+              mIsPrimative { isPrimative },
+              mAliasFor { std::nullopt },
+              mIsPointer { isPointer },
+              mIsReference { isReference }
         {  }
 
-        DataType::DataType(std::string name, size_t szBits, const std::string aliasFor, bool isPrimative )
-            : mName { name }, mSzBits { szBits }, mIsAlias { false },
-              mIsPrimative { isPrimative }, mAliasFor { aliasFor }
+        DataType::DataType(std::string name, size_t szBits, const std::string aliasFor, bool isPrimative, bool isPointer, bool isReference )
+            : mName { name },
+              mSzBits { szBits },
+              mIsAlias { false },
+              mIsPrimative { isPrimative },
+              mAliasFor { aliasFor },
+              mIsPointer { isPointer },
+              mIsReference { isReference }
         {  }
 
         bool DataType::isPrimative() const

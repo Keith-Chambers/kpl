@@ -27,6 +27,23 @@ namespace kpl {
 
         return true;
     }
+
+    void Util::indentString(std::string& targetString, const std::string& indentationString, uint16_t indentLevels)
+    {
+        std::string::size_type currentPos = 0;
+        std::string placeHolder = "\n";
+
+        std::string indentation;
+        while(indentLevels-- > 0)
+            indentation += indentationString;
+
+        while(currentPos != std::string::npos)
+        {
+            currentPos = targetString.find(placeHolder, currentPos);
+            targetString.replace(currentPos, placeHolder.length(), "\n" + indentation);
+            currentPos += indentation.length() + 1;
+        }
+    }
 }
 
 

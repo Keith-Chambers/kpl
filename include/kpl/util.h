@@ -22,6 +22,8 @@ namespace kpl {
         /* Warning: Not safe. Check memory block ranges before invoking */
         static bool dataRightShift(uint8_t * memoryBlockStart, uint16_t numElements, size_t elementSize, uint16_t shiftSize = 1);
         static void indentString(std::string& targetString, const std::string& indentationString = "    ", uint16_t indentLevels = 1);
+        static std::string lowerFirstChar(std::string str);
+        static std::string upperFirstChar(std::string str);
 
         Util();
     };

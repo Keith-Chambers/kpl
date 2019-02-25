@@ -28,6 +28,20 @@ namespace kpl {
         return true;
     }
 
+    std::string Util::lowerFirstChar(std::string str)
+    {
+        std::string result { str };
+        result[0] = static_cast<char>(std::tolower(static_cast<unsigned char>(result[0])));
+        return result;
+    }
+
+    std::string Util::upperFirstChar(std::string str)
+    {
+        std::string result { str };
+        result[0] = static_cast<char>(std::toupper(static_cast<unsigned char>(result[0])));
+        return result;
+    }
+
     void Util::indentString(std::string& targetString, const std::string& indentationString, uint16_t indentLevels)
     {
         std::string::size_type currentPos = 0;

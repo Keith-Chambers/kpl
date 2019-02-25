@@ -185,7 +185,7 @@ namespace kpl {
 
         uint8_t mFirstMemBlock[ sizeof(T1) ];
         uint8_t mSecondMemBlock[ sizeof(T2) ];
-        uint8_t mStateInfo;
+        int32_t mStateInfo;
     };
 }
 

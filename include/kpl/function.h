@@ -15,25 +15,20 @@ namespace kpl {
         public:
             Function(   const std::string name,
                         const DataType returnValue,
-                        std::vector<Variable>& parameters,
-                        const std::string& nodeName,
-                        const std::string& nodeNamespace = "");
+                        std::vector<Variable>& parameters);
 
             bool hasParameters() const;
             bool hasVoidReturnValue() const;
             std::string name() const;
+            std::string returnValueString() const;
+            std::string parameterListString() const;
 
         private:
             const std::string mName;
             const DataType mReturnValue;
             const std::vector<Variable> mParameters;
-
-            const std::string& mNodeName;
-            const std::string& mNodeNamespace;
         };
     }
 }
-
-
 
 #endif // FUNCTION_H

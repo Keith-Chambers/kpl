@@ -5,14 +5,10 @@ namespace kpl {
 
         Function::Function( const std::string name,
                             const DataType returnValue,
-                            std::vector<Variable>& parameters,
-                            const std::string& nodeName,
-                            const std::string& nodeNamespace)
+                            std::vector<Variable>& parameters)
             : mName { name },
               mReturnValue { returnValue },
-              mParameters { parameters },
-              mNodeName { nodeName },
-              mNodeNamespace { nodeNamespace }
+              mParameters { parameters }
 
         {  }
 
@@ -33,6 +29,28 @@ namespace kpl {
         std::string Function::name() const
         {
             return mName;
+        }
+
+
+        std::string Function::returnValueString() const
+        {
+            return mReturnValue.name();
+        }
+
+        std::string Function::parameterListString() const
+        {
+            std::string result;
+
+            for(const kpl::reflection::Variable& var : mParameters)
+            {
+                result.append(var.dataTypePtr()->name() + " ");
+                result.append(var.name() + ",");
+            }
+
+            // Remove trailing comma
+            result.erase(result.size() - 1);
+
+            return result;
         }
     }
 }

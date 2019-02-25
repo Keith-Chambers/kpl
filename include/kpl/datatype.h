@@ -1,5 +1,5 @@
-#ifndef DATATYPE_H
-#define DATATYPE_H
+#ifndef KPL_DATATYPE_H
+#define KPL_DATATYPE_H
 
 #include <string>
 #include <optional>
@@ -49,4 +49,4 @@ namespace kpl {
     }
 }
 
-#endif // DATATYPE_H
+#endif // KPL_DATATYPE_H

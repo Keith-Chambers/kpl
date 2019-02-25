@@ -1,5 +1,5 @@
-#ifndef FUNCTION_H
-#define FUNCTION_H
+#ifndef KPL_FUNCTION_H
+#define KPL_FUNCTION_H
 
 #include <vector>
 #include <string>
@@ -14,8 +14,8 @@ namespace kpl {
         {
         public:
             Function(   const std::string name,
-                        const DataType returnValue,
-                        std::vector<Variable>& parameters);
+                        const kpl::reflection::DataType returnValue,
+                        std::vector<Variable> parameters = {});
 
             bool hasParameters() const;
             bool hasVoidReturnValue() const;
@@ -31,4 +31,4 @@ namespace kpl {
     }
 }
 
-#endif // FUNCTION_H
+#endif // KPL_FUNCTION_H

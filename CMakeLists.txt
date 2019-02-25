@@ -38,7 +38,11 @@ if(TESTS_PATH)
     add_executable( ${TEST_PROJECT}
                     ${TESTS_PATH}/main.cpp
                     ${TESTS_PATH}/testChainedArray.cpp
-                    ${TESTS_PATH}/testPair.cpp )
+                    ${TESTS_PATH}/testPair.cpp
+                    ${TESTS_PATH}/testFunction.cpp
+                    )
+
+    target_link_libraries(${TEST_PROJECT} ${STATIC_LIB_NAME})
 
     target_link_libraries(${TEST_PROJECT} "-lfmt")
 

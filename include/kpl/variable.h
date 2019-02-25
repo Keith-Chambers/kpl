@@ -1,5 +1,5 @@
-#ifndef VARIABLE_H
-#define VARIABLE_H
+#ifndef KPL_VARIABLE_H
+#define KPL_VARIABLE_H
 
 #include "kpl/logicaldatatype.h"
 #include "kpl/datatype.h"
@@ -39,4 +39,4 @@ namespace kpl {
     }
 }
 
-#endif // KVARIABLE_H
+#endif // KPL_VARIABLE_H

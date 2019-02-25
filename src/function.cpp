@@ -5,7 +5,7 @@ namespace kpl {
 
         Function::Function( const std::string name,
                             const DataType returnValue,
-                            std::vector<Variable>& parameters)
+                            std::vector<Variable> parameters)
             : mName { name },
               mReturnValue { returnValue },
               mParameters { parameters }

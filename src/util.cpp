@@ -106,9 +106,13 @@ namespace kpl {
         while(indentLevels-- > 0)
             indentation += indentationString;
 
-        while(currentPos != std::string::npos)
+        while(true)
         {
             currentPos = targetString.find(placeHolder, currentPos);
+
+            if(currentPos == std::string::npos)
+                break;
+
             targetString.replace(currentPos, placeHolder.length(), "\n" + indentation);
             currentPos += indentation.length() + 1;
         }

@@ -36,6 +36,45 @@ namespace kpl {
         return str;
     }
 
+    void Util::createFile(const std::string& path, const std::string& contents)
+    {
+        std::ofstream outfile { path };
+        outfile << contents << std::endl;
+        outfile.close();
+    }
+
+    std::string Util::loadTextFile(const std::string& filePath)
+    {
+        std::ifstream fileToLoad(filePath);
+        std::string result( (std::istreambuf_iterator<char>(fileToLoad) ),
+                            (std::istreambuf_iterator<char>()    ) );
+        return result;
+    }
+
+    void Util::prependFile(const std::string& filePath, std::string content)
+    {
+        // TODO: Check file size and define a max limit
+        content += Util::loadTextFile(filePath);
+        createFile(filePath, content);
+    }
+
+    void Util::copyFileUnix(const std::string& srcPath, const std::string& destPath, const std::string& fileName)
+    {
+        system( std::string("cp " + srcPath + "/" + fileName + " " + destPath + "/" + fileName).c_str() );
+    }
+
+    bool Util::appendContentToFile(const std::string& filePath, const std::string& contents)
+    {
+        std::ofstream outfile;
+
+        outfile.open(filePath, std::ios::app);
+        outfile << "\n" + contents;
+
+        outfile.close();
+
+        return true;
+    }
+
     std::string Util::makeStringLower(std::string str)
     {
         for(size_t i = 0; i < str.size(); i++)

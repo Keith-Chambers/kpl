@@ -10,6 +10,7 @@
 #endif
 
 #include <string>
+#include <fstream>
 #include <cstring>
 
 namespace kpl {
@@ -26,6 +27,12 @@ namespace kpl {
         static std::string upperFirstChar(std::string str);
         static std::string makeStringUpper(std::string str);
         static std::string makeStringLower(std::string str);
+
+        static void createFile(const std::string& path, const std::string& contents);
+        static void prependFile(const std::string& filePath, std::string content);
+        static void copyFileUnix(const std::string& srcPath, const std::string& destPath, const std::string& fileName);
+        static bool appendContentToFile(const std::string& filePath, const std::string& contents);
+        static std::string loadTextFile(const std::string& filePath);
 
         Util();
     };

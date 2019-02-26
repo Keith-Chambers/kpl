@@ -28,6 +28,22 @@ namespace kpl {
         return true;
     }
 
+    std::string Util::makeStringUpper(std::string str)
+    {
+        for(size_t i = 0; i < str.size(); i++)
+            str[i] = static_cast<char>(std::toupper(static_cast<unsigned char>(str[i])));
+
+        return str;
+    }
+
+    std::string Util::makeStringLower(std::string str)
+    {
+        for(size_t i = 0; i < str.size(); i++)
+            str[i] = static_cast<char>(std::tolower(static_cast<unsigned char>(str[i])));
+
+        return str;
+    }
+
     std::string Util::lowerFirstChar(std::string str)
     {
         std::string result { str };

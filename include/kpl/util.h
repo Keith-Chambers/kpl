@@ -24,6 +24,8 @@ namespace kpl {
         static void indentString(std::string& targetString, const std::string& indentationString = "    ", uint16_t indentLevels = 1);
         static std::string lowerFirstChar(std::string str);
         static std::string upperFirstChar(std::string str);
+        static std::string makeStringUpper(std::string str);
+        static std::string makeStringLower(std::string str);
 
         Util();
     };

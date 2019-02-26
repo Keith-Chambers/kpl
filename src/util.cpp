@@ -114,7 +114,7 @@ namespace kpl {
                 break;
 
             targetString.replace(currentPos, placeHolder.length(), "\n" + indentation);
-            currentPos += indentation.length() + 1;
+            currentPos += indentation.length();
         }
     }
 }

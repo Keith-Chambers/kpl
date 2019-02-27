@@ -1,44 +1,47 @@
-#ifndef MEMBERFUNCTOR_H
-#define MEMBERFUNCTOR_H
+#ifndef KPL_MEMBERFUNCTION_H
+#define KPL_MEMBERFUNCTION_H
 
-#include "kpl/datasource.h"
+#include <assert.h>
 
-namespace kpl
-{
+#include <fmt/format.h>
 
-    template <class T>
-    class MemberFunctor : public DataSource
-    {
-    public:
-        MemberFunctor(T *pContextObject, void *(T::*pMemberFunctor)());
-        ~MemberFunctor();
-        virtual void * get();
-    private:
-        void *(T::*mMemberFunctor)(void);
-        T *mContextObject;
-    };
+#include <kpl/function.h>
+#include <kpl/accessmodifier.h>
 
-    template <class T>
-    MemberFunctor<T>::MemberFunctor(T *pContextObject, void *(T::*pMemberFunctor)())
-    {
-        mContextObject = pContextObject; 
-        mMemberFunctor = pMemberFunctor;
+namespace kpl {
+    namespace reflection {
+
+        class Class;
+
+        class MemberFunction
+        {
+        public:
+            MemberFunction( const kpl::reflection::Class& classRef,
+                            const kpl::reflection::Function function,
+                            kpl::reflection::AccessModifier accessModifier = kpl::reflection::AccessModifier::PUBLIC,
+                            bool isStatic = false,
+                            bool isConst = false );
+
+            std::string asDeclarationCode(bool fullyQualify = false) const;
+            std::string asInvocationCode(const std::string instanceName, const std::string passedParameterString, bool isPointer = false) const;
+
+            const kpl::reflection::Function funcData() const;
+            const kpl::reflection::Class& classData() const;
+            bool isStatic() const;
+            bool isConst() const;
+
+            const kpl::reflection::AccessModifier& accessModifier() const;
+            const std::string& accessModifierString() const;
+
+        private:
+            const kpl::reflection::Class& mClass;
+            kpl::reflection::Function mFunction;
+            kpl::reflection::AccessModifier mAccessModifier;
+
+            bool mIsStatic;
+            bool mIsConst;
+        };
     }
-
-
-    template <class T>
-    void * MemberFunctor<T>::get()
-    {
-        return (*mContextObject.*mMemberFunctor)();
-    }
-
-
-    template <class T>
-    MemberFunctor<T>::~MemberFunctor()
-    {
-        
-    }
-
 }
 
-#endif // MEMBERFUNCTOR_H
+#endif // KPL_MEMBERFUNCTION_H

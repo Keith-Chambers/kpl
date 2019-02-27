@@ -17,8 +17,8 @@ namespace kpl {
         class Variable
         {
         public:
-            Variable(std::string name, const DataType dataType, uint16_t min = 1, uint16_t max = 1);
-            Variable(std::string name, const LogicalDataType dataType, uint16_t min = 1, uint16_t max = 1);
+            Variable(std::string name, const DataType dataType, bool isConst = false, uint16_t min = 1, uint16_t max = 1);
+            Variable(std::string name, const LogicalDataType dataType, bool isConst = false, uint16_t min = 1, uint16_t max = 1);
 
             void print(const std::string&& prefix = "") const;
 
@@ -29,10 +29,12 @@ namespace kpl {
 
             uint16_t getCardinalityMax() const;
             uint16_t getCardinalityMin() const;
+            bool isConst() const;
 
         private:
             const std::string mName;
             const LogicalDataType mDataType;
+            bool mIsConst;
             uint16_t mMin;
             uint16_t mMax;
         };

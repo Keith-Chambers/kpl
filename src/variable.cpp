@@ -4,12 +4,12 @@ namespace kpl {
     namespace reflection
     {
 
-        Variable::Variable(std::string name, const DataType dataType, uint16_t min, uint16_t max)
-            : mName { name }, mDataType { dataType }, mMin { min }, mMax { max }
+        Variable::Variable(std::string name, const DataType dataType, bool isConst, uint16_t min, uint16_t max)
+            : mName { name }, mDataType { dataType }, mIsConst { isConst }, mMin { min }, mMax { max }
         {  }
 
-        Variable::Variable(std::string name, const LogicalDataType dataType, uint16_t min, uint16_t max)
-            : mName { name }, mDataType { dataType }, mMin { min }, mMax { max }
+        Variable::Variable(std::string name, const LogicalDataType dataType, bool isConst, uint16_t min, uint16_t max)
+            : mName { name }, mDataType { dataType }, mIsConst { isConst }, mMin { min }, mMax { max }
         {  }
 
         void Variable::print(const std::string&& prefix) const
@@ -19,6 +19,11 @@ namespace kpl {
             std::cout << prefix << "primative: " << mDataType.isPrimative() << '\n';
             std::cout << prefix << "cardinality min: " << mMin << '\n';
             std::cout << prefix << "cardinality max: " << mMax << '\n';
+        }
+
+        bool Variable::isConst() const
+        {
+            return mIsConst;
         }
 
         bool Variable::isArray() const

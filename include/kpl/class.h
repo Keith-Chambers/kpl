@@ -60,6 +60,9 @@ namespace kpl {
             std::vector<kpl::reflection::MemberVariable> getVariables( const  uint8_t decorationMask ) const;
             const std::vector<kpl::reflection::MemberVariable>& getVariables() const;
 
+            uint8_t methodDecoration( const std::string& methodName ) const;
+            uint8_t variableDecoration( const std::string& variableName ) const;
+
             const std::string& classNamespace() const;
             const std::string& name() const;
 

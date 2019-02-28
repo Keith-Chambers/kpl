@@ -155,6 +155,30 @@ namespace kpl {
             return result;
         }
 
+        uint8_t Class::methodDecoration( const std::string& methodName ) const
+        {
+            for(std::size_t i = 0; i < mMethods.size(); i++)
+                if( mMethods[i].funcData().name() == methodName )
+                    return mMethodDecorations[i];
+
+            std::cout << "Error: Tried to get method declaration for unknown method '" + methodName + "'" << std::endl;
+            exit( EXIT_FAILURE );
+
+            return NO_DECORATIONS;
+        }
+
+        uint8_t Class::variableDecoration( const std::string& variableName ) const
+        {
+            for(std::size_t i = 0; i < mVariables.size(); i++)
+                if( mVariables[i].varData().name() == variableName )
+                    return mVariableDecorations[i];
+
+            std::cout << "Error: Tried to get method declaration for unknown method '" + variableName + "'" << std::endl;
+            exit( EXIT_FAILURE );
+
+            return NO_DECORATIONS;
+        }
+
         std::string Class::singletonNameCode() const
         {
             return Util::lowerFirstChar( mName );

@@ -19,7 +19,6 @@ namespace kpl {
 
         bool Function::hasVoidReturnValue() const
         {
-            //if(mReturnValue.name() == VOID_TYPE_NAME)
             if(mReturnValue.name() == "void")
                 return true;
 
@@ -86,7 +85,8 @@ namespace kpl {
             }
 
             // Remove trailing comma
-            result.erase(result.size() - 1);
+            if(mParameters.size() > 0)
+                result.erase(result.size() - 1);
 
             return result;
         }

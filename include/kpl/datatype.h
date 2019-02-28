@@ -4,6 +4,9 @@
 #include <string>
 #include <optional>
 #include <vector>
+#include <array>
+
+#include <kpl/chainedarray.h>
 
 /* DataType - Represents a DataType that can be used in code, defined by it's name and size
  * Supports alias and non-primative types
@@ -12,13 +15,13 @@
 namespace kpl {
     namespace reflection
     {
-        // extern const char * VOID_TYPE_NAME;
-
         class DataType
         {
         public:
             DataType(std::string name, size_t szBits, bool isPrimative = true, bool isPointer = false, bool isReference = false);
             DataType(std::string name, size_t szBits, const std::string aliasFor, bool isPrimative = true, bool isPointer = false, bool isReference = false);
+
+            static constexpr uint8_t BITS_PER_BYTE = 8;
 
             size_t sizeBits() const;
             std::string name() const;
@@ -28,23 +31,34 @@ namespace kpl {
 
             /* Static Methods */
             static DataType makeAlias(std::string newName, const DataType& parentType);
-            static const std::vector<DataType>* generateDefaultTypes();
             static bool isDefaultSupported(std::string name);
-            static size_t szBitsOfSupportedType(std::string name);
+            static std::optional<DataType> constructDefaultSupportedType(std::string name);
+
+            static DataType makeVoidType();
+            static DataType makeUint8Type();
+            static DataType makeUint16Type();
+            static DataType makeCharType();
 
         private:
             const std::string mName;
             const std::size_t mSzBits;
             const bool mIsAlias;
             const bool mIsPrimative;
-            std::optional<const std::string> mAliasFor;
+            const std::optional<std::string> mAliasFor;
             const bool mIsPointer;
             const bool mIsReference;
+        };
 
-
-            /* NOTE: Needs to be synced with generateDefaultTypes() */
-            static const uint8_t NUM_DEFAULT_SUPPORTED_TYPES;
-            static std::vector<DataType> mDefaultSupportedTypes;
+        static const std::array<DataType, 9> DEFAULT_DATATYPES {
+            DataType("void", 0),
+            DataType("char", 1 * kpl::reflection::DataType::BITS_PER_BYTE),
+            DataType("bool", 1),
+            DataType("uint8_t", 1 * kpl::reflection::DataType::BITS_PER_BYTE),
+            DataType("int8_t", 1 * kpl::reflection::DataType::BITS_PER_BYTE),
+            DataType("uint16_t", 2 * kpl::reflection::DataType::BITS_PER_BYTE),
+            DataType("int16_t", 2 * kpl::reflection::DataType::BITS_PER_BYTE),
+            DataType("uint32_t", 4 * kpl::reflection::DataType::BITS_PER_BYTE),
+            DataType("int32_t", 4 * kpl::reflection::DataType::BITS_PER_BYTE)
         };
     }
 }

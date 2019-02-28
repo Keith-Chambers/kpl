@@ -22,7 +22,6 @@ namespace kpl {
             Class(const std::string& name, const std::string& classNamespace);
 
             static constexpr uint8_t NO_DECORATIONS = 0b00000000;
-
             static const std::string& AccessModifierString(AccessModifier accessModifier);
 
             bool addMethod( kpl::reflection::Function function,
@@ -54,18 +53,18 @@ namespace kpl {
             std::optional<kpl::reflection::MemberFunction> getMethod( const std::string& name ) const;
             std::optional<kpl::reflection::MemberVariable> getVariable( const std::string& name ) const;
 
-            std::vector<kpl::reflection::MemberFunction> getMethods( const uint8_t decorationMask );
-            const std::vector<kpl::reflection::MemberFunction>& getMethods();
+            std::vector<kpl::reflection::MemberFunction> getMethods( const uint8_t decorationMask ) const;
+            const std::vector<kpl::reflection::MemberFunction>& getMethods() const;
 
-            std::vector<kpl::reflection::MemberVariable> getVariables( const  uint8_t decorationMask );
-            const std::vector<kpl::reflection::MemberVariable>& getVariables();
+            std::vector<kpl::reflection::MemberVariable> getVariables( const  uint8_t decorationMask ) const;
+            const std::vector<kpl::reflection::MemberVariable>& getVariables() const;
 
             const std::string& classNamespace() const;
             const std::string& name() const;
 
         private:
-            std::string mName;
-            std::string mNamespace;
+            const std::string mName;
+            const std::string mNamespace;
 
             std::vector<kpl::reflection::MemberFunction> mMethods;
             std::vector<uint8_t> mMethodDecorations;

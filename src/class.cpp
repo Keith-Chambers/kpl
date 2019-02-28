@@ -123,12 +123,12 @@ namespace kpl {
             return std::nullopt;
         }
 
-        const std::vector<kpl::reflection::MemberFunction>& Class::getMethods()
+        const std::vector<kpl::reflection::MemberFunction>& Class::getMethods() const
         {
             return mMethods;
         }
 
-        std::vector<kpl::reflection::MemberFunction> Class::getMethods( const uint8_t decorationMask )
+        std::vector<kpl::reflection::MemberFunction> Class::getMethods( const uint8_t decorationMask ) const
         {
             std::vector<kpl::reflection::MemberFunction> result;
 
@@ -139,12 +139,12 @@ namespace kpl {
             return result;
         }
 
-        const std::vector<kpl::reflection::MemberVariable>& Class::getVariables()
+        const std::vector<kpl::reflection::MemberVariable>& Class::getVariables() const
         {
             return mVariables;
         }
 
-        std::vector<kpl::reflection::MemberVariable> Class::getVariables( const uint8_t decorationMask )
+        std::vector<kpl::reflection::MemberVariable> Class::getVariables( const uint8_t decorationMask ) const
         {
             std::vector<kpl::reflection::MemberVariable> result;
 

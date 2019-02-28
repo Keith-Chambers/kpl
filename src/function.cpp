@@ -26,6 +26,11 @@ namespace kpl {
             return false;
         }
 
+        bool Function::operator==(const Function& func) const
+        {
+            return mReturnValue.name() == func.returnValueString() && parameterListString() == func.parameterListString();
+        }
+
         std::string Function::name() const
         {
             return mName;

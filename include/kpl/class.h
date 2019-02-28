@@ -66,6 +66,8 @@ namespace kpl {
             const std::string& classNamespace() const;
             const std::string& name() const;
 
+            bool operator==(const Class& classData) const;
+
             /* Source Code Generators */
             std::string singletonNameCode() const;
             std::string fileGuardCode() const;

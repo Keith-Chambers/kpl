@@ -28,6 +28,11 @@ namespace kpl {
             return fmt::format("{}{}{}({})", instanceName, accessNotation, mFunction.name(), passedParameterString);
         }
 
+        bool MemberFunction::operator==(MemberFunction memFunc) const
+        {
+            return ( memFunc.mClass == mClass && mFunction == memFunc.funcData() );
+        }
+
         const kpl::reflection::Function& MemberFunction::funcData() const
         {
             return mFunction;

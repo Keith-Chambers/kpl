@@ -23,6 +23,8 @@ namespace kpl {
             std::string returnValueString() const;
             std::string parameterListString() const;
 
+            bool operator==(const Function& func) const;
+
         private:
             const std::string mName;
             const DataType mReturnValue;

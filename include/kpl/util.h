@@ -12,6 +12,7 @@
 #include <string>
 #include <fstream>
 #include <cstring>
+#include <vector>
 
 namespace kpl {
 
@@ -27,6 +28,17 @@ namespace kpl {
         static std::string upperFirstChar(std::string str);
         static std::string makeStringUpper(std::string str);
         static std::string makeStringLower(std::string str);
+
+        template <typename T>
+        static bool uniquePushBack(std::vector<T> vec, const T& value)
+        {
+            for(const T& val : vec)
+                if( val == value )
+                    return false;
+
+            vec.push_back( value );
+            return true;
+        }
 
         static void createFile(const std::string& path, const std::string& contents);
         static void prependFile(const std::string& filePath, std::string content);

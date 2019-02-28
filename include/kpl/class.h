@@ -46,15 +46,18 @@ namespace kpl {
                               bool isStatic = false );
 
             bool containsVariable( const std::string& name ) const;
+            bool containsVariable( const std::string& name, const uint8_t decorationMask ) const;
+
             bool containsMethod( const std::string& name ) const;
+            bool containsMethod( const std::string& name, const uint8_t decorationMask ) const;
 
             std::optional<kpl::reflection::MemberFunction> getMethod( const std::string& name ) const;
             std::optional<kpl::reflection::MemberVariable> getVariable( const std::string& name ) const;
 
-            std::vector<kpl::reflection::MemberFunction> getMethods(uint8_t decorationMask);
+            std::vector<kpl::reflection::MemberFunction> getMethods( const uint8_t decorationMask );
             const std::vector<kpl::reflection::MemberFunction>& getMethods();
 
-            std::vector<kpl::reflection::MemberVariable> getVariables(uint8_t decorationMask);
+            std::vector<kpl::reflection::MemberVariable> getVariables( const  uint8_t decorationMask );
             const std::vector<kpl::reflection::MemberVariable>& getVariables();
 
             const std::string& classNamespace() const;

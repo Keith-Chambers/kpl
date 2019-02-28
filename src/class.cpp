@@ -3,11 +3,11 @@
 namespace kpl {
     namespace reflection {
 
-        Class::Class(const std::string& name, const std::string& classNamespace)
+        Class::Class( const std::string& name, const std::string& classNamespace )
             : mName { name }, mNamespace { classNamespace }
         {  }
 
-        bool Class::addMethod(kpl::reflection::Function function, kpl::reflection::AccessModifier accessModifier, bool isStatic, bool isConst)
+        bool Class::addMethod( kpl::reflection::Function function, kpl::reflection::AccessModifier accessModifier, bool isStatic, bool isConst )
         {
             if( containsMethod( function.name() ) )
                 return false;
@@ -20,7 +20,7 @@ namespace kpl {
             return true;
         }
 
-        bool Class::addMethod(kpl::reflection::Function function, uint8_t decorations, kpl::reflection::AccessModifier accessModifier, bool isStatic, bool isConst)
+        bool Class::addMethod( kpl::reflection::Function function, uint8_t decorations, kpl::reflection::AccessModifier accessModifier, bool isStatic, bool isConst )
         {
             if( containsMethod( function.name() ) )
                 return false;
@@ -78,11 +78,29 @@ namespace kpl {
             return false;
         }
 
+        bool Class::containsVariable( const std::string& name, const uint8_t decorationMask ) const
+        {
+            for( std::size_t i = 0; i < mVariables.size(); i++ )
+                if( mVariables[i].varData().name() == name )
+                    return ( (mVariableDecorations[i] & decorationMask) == decorationMask );
+
+            return false;
+        }
+
         bool Class::containsMethod( const std::string& name ) const
         {
             for( const kpl::reflection::MemberFunction& memFunc : mMethods )
                 if( memFunc.funcData().name() == name )
                     return true;
+
+            return false;
+        }
+
+        bool Class::containsMethod( const std::string& name, const uint8_t decorationMask ) const
+        {
+            for( std::size_t i = 0; i < mMethods.size(); i++ )
+                if( mMethods[i].funcData().name() == name )
+                    return ( (mMethodDecorations[i] & decorationMask) == decorationMask );
 
             return false;
         }
@@ -110,7 +128,7 @@ namespace kpl {
             return mMethods;
         }
 
-        std::vector<kpl::reflection::MemberFunction> Class::getMethods(uint8_t decorationMask)
+        std::vector<kpl::reflection::MemberFunction> Class::getMethods( const uint8_t decorationMask )
         {
             std::vector<kpl::reflection::MemberFunction> result;
 
@@ -126,7 +144,7 @@ namespace kpl {
             return mVariables;
         }
 
-        std::vector<kpl::reflection::MemberVariable> Class::getVariables(uint8_t decorationMask)
+        std::vector<kpl::reflection::MemberVariable> Class::getVariables( const uint8_t decorationMask )
         {
             std::vector<kpl::reflection::MemberVariable> result;
 

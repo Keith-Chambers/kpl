@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <optional>
+#include <algorithm>
 
 #include <kpl/function.h>
 #include <kpl/variable.h>
@@ -61,6 +62,13 @@ namespace kpl {
 
             const std::string& classNamespace() const;
             const std::string& name() const;
+
+            /* Source Code Generators */
+            std::string singletonNameCode() const;
+            std::string fileGuardCode() const;
+            std::string singletonInstanciationCode() const;
+            std::string objectInstanciationCode(const std::string& parameters = "") const;
+            std::string objectInstanciationCode(const std::string& objName, const std::string& parameters = "") const;
 
         private:
             const std::string mName;

@@ -154,5 +154,33 @@ namespace kpl {
 
             return result;
         }
+
+        std::string Class::singletonNameCode() const
+        {
+            return Util::lowerFirstChar( mName );
+        }
+
+        std::string Class::fileGuardCode() const
+        {
+            std::string result = mName;
+            std::for_each(result.begin(), result.end(), ::toupper);
+
+            return "INC_" + result + "_H";
+        }
+
+        std::string Class::singletonInstanciationCode() const
+        {
+            return mName + "* " + singletonNameCode() + " = " + mNamespace + "::" + mName + "::getInstance()";
+        }
+
+        std::string Class::objectInstanciationCode(const std::string& parameters) const
+        {
+            return mNamespace + "::" + mName + " " + singletonNameCode() + "(" + parameters + ")";
+        }
+
+        std::string Class::objectInstanciationCode(const std::string& objName, const std::string& parameters) const
+        {
+            return mNamespace + "::" + mName + " " + objName + "(" + parameters + ")";
+        }
     }
 }

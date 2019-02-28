@@ -26,6 +26,15 @@ namespace kpl {
             Class(const Class&)=delete;
             Class operator=(const Class&)=delete;
 
+            Class(Class&& rhs) noexcept
+                : mName { std::move(rhs.mName) },
+                  mNamespace { std::move(rhs.mNamespace) },
+                  mMethods { std::move(rhs.mMethods) },
+                  mMethodDecorations { std::move(rhs.mMethodDecorations) },
+                  mVariables { std::move(rhs.mVariables) },
+                  mVariableDecorations { std::move(rhs.mVariableDecorations) }
+            {  }
+
             static constexpr uint8_t NO_DECORATIONS = 0b00000000;
 
             bool addMethod( kpl::reflection::Function function,

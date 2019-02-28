@@ -68,6 +68,8 @@ namespace kpl {
 
             bool operator==(const Class& classData) const;
             bool operator!=(const Class& classData) const;
+            bool operator<(const Class& classData) const;
+            bool operator>(const Class& classData) const;
 
             /* Source Code Generators */
             std::string singletonNameCode() const;

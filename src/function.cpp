@@ -36,6 +36,34 @@ namespace kpl {
             return mReturnValue.name() != func.returnValueString() || parameterListString() != func.parameterListString();
         }
 
+        bool Function::operator<(const Function& func) const
+        {
+            if(mName < func.name())
+                return true;
+
+            if(mName > func.name())
+                return false;
+
+            if(parameterListString() < func.parameterListString())
+                return true;
+
+            return false;
+        }
+
+        bool Function::operator>(const Function& func) const
+        {
+            if(mName > func.name())
+                return true;
+
+            if(mName < func.name())
+                return false;
+
+            if(parameterListString() > func.parameterListString())
+                return true;
+
+            return false;
+        }
+
         std::string Function::name() const
         {
             return mName;

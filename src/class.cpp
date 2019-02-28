@@ -189,6 +189,34 @@ namespace kpl {
             return classData.name() != mName || classData.classNamespace() != classNamespace();
         }
 
+        bool Class::operator<(const Class& classData) const
+        {
+            if(mName < classData.name())
+                return true;
+
+            if(mName > classData.name())
+                return false;
+
+            if(mNamespace < classData.classNamespace())
+                return true;
+
+            return false;
+        }
+
+        bool Class::operator>(const Class& classData) const
+        {
+            if(mName > classData.name())
+                return true;
+
+            if(mName < classData.name())
+                return false;
+
+            if(mNamespace > classData.classNamespace())
+                return true;
+
+            return false;
+        }
+
         std::string Class::singletonNameCode() const
         {
             return Util::lowerFirstChar( mName );

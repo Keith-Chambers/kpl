@@ -28,14 +28,42 @@ namespace kpl {
             return fmt::format("{}{}{}({})", instanceName, accessNotation, mFunction.name(), passedParameterString);
         }
 
-        bool MemberFunction::operator==(MemberFunction memFunc) const
+        bool MemberFunction::operator==(const MemberFunction& memFunc) const
         {
             return ( memFunc.mClass == mClass && mFunction == memFunc.funcData() );
         }
 
-        bool MemberFunction::operator!=(MemberFunction memFunc) const
+        bool MemberFunction::operator!=(const MemberFunction& memFunc) const
         {
             return ( memFunc.mClass != mClass || mFunction != memFunc.funcData() );
+        }
+
+        bool MemberFunction::operator<(const MemberFunction& memFunc) const
+        {
+            if(mClass < memFunc.classData())
+                return true;
+
+            if(mClass > memFunc.classData())
+                return false;
+
+            if(mFunction < memFunc.funcData())
+                return true;
+
+            return false;
+        }
+
+        bool MemberFunction::operator>(const MemberFunction& memFunc) const
+        {
+            if(mClass > memFunc.classData())
+                return true;
+
+            if(mClass < memFunc.classData())
+                return false;
+
+            if(mFunction > memFunc.funcData())
+                return true;
+
+            return false;
         }
 
         const kpl::reflection::Function& MemberFunction::funcData() const

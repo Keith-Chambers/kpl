@@ -28,7 +28,7 @@ namespace kpl {
             std::string defaultInstanceName() const;
 
             const kpl::reflection::Variable varData() const;
-            const kpl::reflection::Class classData() const;
+            const kpl::reflection::Class& classData() const;
 
             const kpl::reflection::AccessModifier& accessModifier() const;
             const std::string& accessModifierString() const;

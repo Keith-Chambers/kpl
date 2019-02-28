@@ -65,7 +65,7 @@ namespace kpl {
             return mVariable;
         }
 
-        const kpl::reflection::Class MemberVariable::classData() const
+        const kpl::reflection::Class& MemberVariable::classData() const
         {
             return mClass;
         }

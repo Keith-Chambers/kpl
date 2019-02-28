@@ -22,6 +22,10 @@ namespace kpl {
 
             Class(const std::string& name, const std::string& classNamespace);
 
+            Class()=delete;
+            Class(const Class&)=delete;
+            Class operator=(const Class&)=delete;
+
             static constexpr uint8_t NO_DECORATIONS = 0b00000000;
 
             bool addMethod( kpl::reflection::Function function,

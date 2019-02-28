@@ -33,6 +33,11 @@ namespace kpl {
             return ( memFunc.mClass == mClass && mFunction == memFunc.funcData() );
         }
 
+        bool MemberFunction::operator!=(MemberFunction memFunc) const
+        {
+            return ( memFunc.mClass != mClass || mFunction != memFunc.funcData() );
+        }
+
         const kpl::reflection::Function& MemberFunction::funcData() const
         {
             return mFunction;

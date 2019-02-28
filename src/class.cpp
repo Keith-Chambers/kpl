@@ -184,6 +184,11 @@ namespace kpl {
             return classData.name() == mName && classData.classNamespace() == classNamespace();
         }
 
+        bool Class::operator!=(const Class& classData) const
+        {
+            return classData.name() != mName || classData.classNamespace() != classNamespace();
+        }
+
         std::string Class::singletonNameCode() const
         {
             return Util::lowerFirstChar( mName );

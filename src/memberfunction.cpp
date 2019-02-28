@@ -28,7 +28,7 @@ namespace kpl {
             return fmt::format("{}{}{}({})", instanceName, accessNotation, mFunction.name(), passedParameterString);
         }
 
-        const kpl::reflection::Function MemberFunction::funcData() const
+        const kpl::reflection::Function& MemberFunction::funcData() const
         {
             return mFunction;
         }

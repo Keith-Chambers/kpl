@@ -24,6 +24,11 @@ set(SOURCES ${SOURCE_PATH}/eventsystem.cpp
             ${SOURCE_PATH}/variable.cpp
             ${SOURCE_PATH}/pointertype.cpp
             ${SOURCE_PATH}/referencetype.cpp
+            ${SOURCE_PATH}/idgenerator.cpp
+            ${SOURCE_PATH}/class.cpp
+            ${SOURCE_PATH}/memberfunction.cpp
+            ${SOURCE_PATH}/membervariable.cpp
+            ${SOURCE_PATH}/accessmodifier.cpp
             )
 
 add_library(${LIB_NAME} SHARED ${SOURCES})
@@ -40,6 +45,7 @@ if(TESTS_PATH)
                     ${TESTS_PATH}/testChainedArray.cpp
                     ${TESTS_PATH}/testPair.cpp
                     ${TESTS_PATH}/testFunction.cpp
+                    ${TESTS_PATH}/testIDGenerator.cpp
                     )
 
     target_link_libraries(${TEST_PROJECT} ${STATIC_LIB_NAME})

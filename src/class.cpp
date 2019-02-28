@@ -13,11 +13,25 @@ namespace kpl {
                 return false;
 
             mMethods.emplace_back( *this, function, accessModifier, isStatic, isConst );
+            mMethodDecorations.push_back( NO_DECORATIONS );
+
+            assert( mMethods.size() == mMethodDecorations.size() && "Error: mMethods and mMethodDecorations are of different sizes" );
 
             return true;
         }
 
+        bool Class::addMethod(kpl::reflection::Function function, uint8_t decorations, kpl::reflection::AccessModifier accessModifier, bool isStatic, bool isConst)
+        {
+            if( containsMethod( function.name() ) )
+                return false;
 
+            mMethods.emplace_back( *this, function, accessModifier, isStatic, isConst );
+            mMethodDecorations.push_back(decorations);
+
+            assert( mMethods.size() == mMethodDecorations.size() && "Error: mMethods and mMethodDecorations are of different sizes" );
+
+            return true;
+        }
 
         const std::string& Class::classNamespace() const
         {
@@ -35,6 +49,22 @@ namespace kpl {
                 return false;
 
             mVariables.emplace_back( *this, variable, accessModifier, isStatic );
+            mVariableDecorations.push_back( NO_DECORATIONS );
+
+            assert( mVariables.size() == mVariableDecorations.size() && "Error: mVariables and mVariableDecorations are of different sizes" );
+
+            return true;
+        }
+
+        bool Class::addVariable( kpl::reflection::Variable variable, uint8_t decorations, kpl::reflection::AccessModifier accessModifier, bool isStatic )
+        {
+            if( containsVariable( variable.name() ))
+                return false;
+
+            mVariables.emplace_back( *this, variable, accessModifier, isStatic );
+            mVariableDecorations.push_back( decorations );
+
+            assert( mVariables.size() == mVariableDecorations.size() && "Error: mVariables and mVariableDecorations are of different sizes" );
 
             return true;
         }
@@ -80,10 +110,31 @@ namespace kpl {
             return mMethods;
         }
 
+        std::vector<kpl::reflection::MemberFunction> Class::getMethods(uint8_t decorationMask)
+        {
+            std::vector<kpl::reflection::MemberFunction> result;
+
+            for(std::size_t i = 0; i < mMethods.size(); i++)
+                if( (mMethodDecorations[i] & decorationMask) == decorationMask )
+                    result.push_back( mMethods[i] );
+
+            return result;
+        }
+
         const std::vector<kpl::reflection::MemberVariable>& Class::getVariables()
         {
             return mVariables;
         }
 
+        std::vector<kpl::reflection::MemberVariable> Class::getVariables(uint8_t decorationMask)
+        {
+            std::vector<kpl::reflection::MemberVariable> result;
+
+            for(std::size_t i = 0; i < mVariables.size(); i++)
+                if( (mVariableDecorations[i] & decorationMask) == decorationMask )
+                    result.push_back( mVariables[i] );
+
+            return result;
+        }
     }
 }

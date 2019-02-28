@@ -25,7 +25,7 @@ namespace kpl {
             std::string asDeclarationCode(bool fullyQualify = false) const;
             std::string asInvocationCode(const std::string instanceName, const std::string passedParameterString, bool isPointer = false) const;
 
-            const kpl::reflection::Function funcData() const;
+            const kpl::reflection::Function& funcData() const;
             const kpl::reflection::Class& classData() const;
             bool isStatic() const;
             bool isConst() const;

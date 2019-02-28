@@ -15,7 +15,7 @@ namespace kpl {
         public:
             Function(   const std::string name,
                         const kpl::reflection::DataType returnValue,
-                        std::vector<Variable> parameters = {});
+                        std::vector<Variable> parameters = {} );
 
             bool hasParameters() const;
             bool hasVoidReturnValue() const;

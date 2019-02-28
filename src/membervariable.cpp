@@ -77,7 +77,7 @@ namespace kpl {
 
         const std::string& MemberVariable::accessModifierString() const
         {
-            return kpl::reflection::Class::AccessModifierString( mAccessModifier );
+            return kpl::reflection::AccessModifierString( mAccessModifier );
         }
     }
 }

@@ -18,7 +18,7 @@ namespace kpl {
             static const std::string constQualifier = ( mIsConst ) ? "const" : "";
             const std::string classQualifier = (fullyQualify) ? mClass.classNamespace() + "::" : "";
 
-            return fmt::format("{} {} {}{}({}) {};", staticQualifier, mFunction.returnValueString(), classQualifier, mFunction.name(), mFunction.parameterListString(), constQualifier);
+            return fmt::format("{} {} {}{}::{}({}) {};", staticQualifier, mFunction.returnValueString(), classQualifier, mClass.name(), mFunction.name(), mFunction.parameterListString(), constQualifier);
         }
 
         std::string MemberFunction::asInvocationCode(const std::string instanceName, const std::string passedParameterString, bool isPointer) const

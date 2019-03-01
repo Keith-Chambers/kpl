@@ -91,8 +91,8 @@ namespace kpl {
             std::string objectInstanciationCode(const std::string& objName, const std::string& parameters = "") const;
 
         private:
-            const std::string mName;
-            const std::string mNamespace;
+            std::string mName;
+            std::string mNamespace;
 
             std::vector<kpl::reflection::MemberFunction> mMethods;
             std::vector<uint8_t> mMethodDecorations;

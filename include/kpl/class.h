@@ -33,7 +33,7 @@ namespace kpl {
                   mMethodDecorations { std::move(rhs.mMethodDecorations) },
                   mVariables { std::move(rhs.mVariables) },
                   mVariableDecorations { std::move(rhs.mVariableDecorations) }
-            {  }
+            { std::cout << "Warning: Move constructor called for kpl::reflection::Class. All sub references may be invalidated" << std::endl; }
 
             static constexpr uint8_t NO_DECORATIONS = 0b00000000;
 

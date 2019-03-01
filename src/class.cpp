@@ -240,7 +240,15 @@ namespace kpl {
 
         std::string Class::singletonInstanciationCode() const
         {
-            return mNamespace + "::" + mName + "* " + singletonNameCode() + " = " + mNamespace + "::" + mName + "::getInstance()";
+            return mNamespace + "::" + mName + "::getInstance()";
+        }
+
+        std::string Class::singletonAssignmentCode(std::string instanceName) const
+        {
+            if(instanceName.empty())
+                instanceName = singletonNameCode();
+
+            return mNamespace + "::" + mName + "* " + instanceName + " = " + mNamespace + "::" + mName + "::getInstance()";
         }
 
         std::string Class::objectInstanciationCode(const std::string& parameters) const

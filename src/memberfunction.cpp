@@ -18,7 +18,14 @@ namespace kpl {
             static const std::string constQualifier = ( mIsConst ) ? "const" : "";
             const std::string classQualifier = (fullyQualify) ? mClass.classNamespace() + "::" : "";
 
-            return fmt::format("{} {} {}{}::{}({}) {};", staticQualifier, mFunction.returnValueString(), classQualifier, mClass.name(), mFunction.name(), mFunction.parameterListString(), constQualifier);
+            return fmt::format("{0} {1} {2}{3}::{4}({5}) {6};",
+                                staticQualifier,                    /* 0 */
+                                mFunction.returnValueString(),      /* 1 */
+                                classQualifier,                     /* 2 */
+                                mClass.name(),                      /* 3 */
+                                mFunction.name(),                   /* 4 */
+                                mFunction.parameterListString(),    /* 5 */
+                                constQualifier );                   /* 6 */
         }
 
         std::string MemberFunction::asDefinitionCode(const std::string& body, bool fullyQualify) const
@@ -26,16 +33,25 @@ namespace kpl {
             static const std::string constQualifier = ( mIsConst ) ? "const" : "";
             const std::string classQualifier = (fullyQualify) ? mClass.classNamespace() + "::" : "";
 
-            return fmt::format("{0} {1}{2}::{3}({4}) {5} \n{\n {6} \n }",    mFunction.returnValueString(),
-                                                                            classQualifier, mClass.name(), mFunction.name(),
-                                                                            mFunction.parameterListString(), constQualifier, body);
+            return fmt::format("{0} {1}{2}::{3}({4}) {5} \n{{\n {6} \n}}",
+                                mFunction.returnValueString(),      /* 0 */
+                                classQualifier,                     /* 1 */
+                                mClass.name(),                      /* 2 */
+                                mFunction.name(),                   /* 3 */
+                                mFunction.parameterListString(),    /* 4 */
+                                constQualifier,                     /* 5 */
+                                body );                             /* 6 */
         }
 
         std::string MemberFunction::asInvocationCode(const std::string instanceName, const std::string passedParameterString, bool isPointer) const
         {
             const std::string accessNotation = ( isPointer ) ? "->" : ".";
 
-            return fmt::format("{}{}{}({})", instanceName, accessNotation, mFunction.name(), passedParameterString);
+            return fmt::format("{0}{1}{2}({3})",
+                                instanceName,               /* 0 */
+                                accessNotation,             /* 1 */
+                                mFunction.name(),           /* 2 */
+                                passedParameterString );    /* 3 */
         }
 
         bool MemberFunction::operator==(const MemberFunction& memFunc) const

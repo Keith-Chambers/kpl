@@ -21,6 +21,16 @@ namespace kpl {
             return fmt::format("{} {} {}{}::{}({}) {};", staticQualifier, mFunction.returnValueString(), classQualifier, mClass.name(), mFunction.name(), mFunction.parameterListString(), constQualifier);
         }
 
+        std::string MemberFunction::asDefinitionCode(const std::string& body, bool fullyQualify) const
+        {
+            static const std::string constQualifier = ( mIsConst ) ? "const" : "";
+            const std::string classQualifier = (fullyQualify) ? mClass.classNamespace() + "::" : "";
+
+            return fmt::format("{} {}{}::{}({}) {} \n{\n {}\n }",  mFunction.returnValueString(),
+                                                                    classQualifier, mClass.name(), mFunction.name(),
+                                                                    mFunction.parameterListString(), constQualifier, body);
+        }
+
         std::string MemberFunction::asInvocationCode(const std::string instanceName, const std::string passedParameterString, bool isPointer) const
         {
             const std::string accessNotation = ( isPointer ) ? "->" : ".";

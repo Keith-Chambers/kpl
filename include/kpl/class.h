@@ -89,6 +89,7 @@ namespace kpl {
             std::string singletonInstanciationCode() const;
             std::string objectInstanciationCode(const std::string& parameters = "") const;
             std::string objectInstanciationCode(const std::string& objName, const std::string& parameters = "") const;
+            std::string includeDirectiveCode( const std::string& pathPrefix = "" ) const;
 
         private:
             std::string mName;

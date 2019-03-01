@@ -230,6 +230,14 @@ namespace kpl {
             return "INC_" + result + "_H";
         }
 
+        std::string Class::includeDirectiveCode( const std::string& pathPrefix ) const
+        {
+            std::string nameLower = mName;
+            std::for_each(nameLower.begin(), nameLower.end(), ::tolower);
+
+            return "#include <" + pathPrefix + nameLower + ".h>";
+        }
+
         std::string Class::singletonInstanciationCode() const
         {
             return mName + "* " + singletonNameCode() + " = " + mNamespace + "::" + mName + "::getInstance()";

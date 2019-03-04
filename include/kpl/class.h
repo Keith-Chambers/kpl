@@ -37,6 +37,7 @@ namespace kpl {
 
             static constexpr uint8_t NO_DECORATIONS = 0b00000000;
 
+
             bool addMethod( kpl::reflection::Function function,
                             kpl::reflection::AccessModifier accessModifier = kpl::reflection::AccessModifier::PUBLIC,
                             bool isStatic = false,

@@ -233,7 +233,7 @@ namespace kpl {
         std::string Class::includeDirectiveCode( const std::string& pathPrefix ) const
         {
             std::string nameLower = mName;
-            std::for_each(nameLower.begin(), nameLower.end(), ::tolower);
+            std::transform(nameLower.begin(), nameLower.end(), nameLower.begin(), ::tolower);
 
             return "#include <" + pathPrefix + nameLower + ".h>";
         }

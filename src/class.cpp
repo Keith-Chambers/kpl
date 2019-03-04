@@ -253,7 +253,11 @@ namespace kpl {
 
         std::string Class::objectInstanciationCode(const std::string& parameters) const
         {
-            return mNamespace + "::" + mName + " " + singletonNameCode() + "(" + parameters + ")";
+            std::string result = mNamespace + "::" + mName + " " + singletonNameCode();
+            if(parameters.empty() )
+                return result + ";";
+            else
+                return result + "(" + parameters + ")";
         }
 
         std::string Class::objectInstanciationCode(const std::string& objName, const std::string& parameters) const

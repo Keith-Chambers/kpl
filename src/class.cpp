@@ -255,7 +255,7 @@ namespace kpl {
         {
             std::string result = mNamespace + "::" + mName + " " + singletonNameCode();
             if(parameters.empty() )
-                return result + ";";
+                return result;
             else
                 return result + "(" + parameters + ")";
         }

@@ -25,6 +25,7 @@ namespace kpl {
             std::string asDeclarationCode(bool fullyQualify = false) const;
             std::string asInvocationCode(const std::string instanceName, const std::string passedParameterString, bool isPointer = false) const;
             std::string asDefinitionCode(const std::string& body, bool fullyQualify = false) const;
+            std::string qualifiedName() const;
 
             /* Overloaded operators */
             bool operator==(const MemberFunction& memFunc) const;

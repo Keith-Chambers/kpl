@@ -217,12 +217,7 @@ namespace kpl {
             return false;
         }
 
-        std::string Class::singletonNameCode() const
-        {
-            return Util::lowerFirstChar( mName );
-        }
-
-        std::string Class::fileGuardCode() const
+        std::string Class::asHeaderFileGuard() const
         {
             std::string result = mName;
             std::for_each(result.begin(), result.end(), ::toupper);
@@ -235,7 +230,7 @@ namespace kpl {
             std::string nameLower = mName;
             std::transform(nameLower.begin(), nameLower.end(), nameLower.begin(), ::tolower);
 
-            return "#include <" + pathPrefix + nameLower + ".h>";
+            return "#include <" + pathPrefix + asHeaderFileName() + ">";
         }
 
         std::string Class::singletonInstanciationCode() const
@@ -246,23 +241,53 @@ namespace kpl {
         std::string Class::singletonAssignmentCode(std::string instanceName) const
         {
             if(instanceName.empty())
-                instanceName = singletonNameCode();
+                instanceName = asSingletonName();
 
             return mNamespace + "::" + mName + "* " + instanceName + " = " + mNamespace + "::" + mName + "::getInstance()";
         }
 
         std::string Class::objectInstanciationCode(const std::string& parameters) const
         {
-            std::string result = mNamespace + "::" + mName + " " + singletonNameCode();
-            if(parameters.empty() )
-                return result;
-            else
-                return result + "(" + parameters + ")";
+            std::string result = mNamespace + "::" + mName + " " + asSingletonName();
+
+            if(! parameters.empty() )
+                result += "( " + parameters + ")";
+
+            return result;
         }
 
         std::string Class::objectInstanciationCode(const std::string& objName, const std::string& parameters) const
         {
-            return mNamespace + "::" + mName + " " + objName + "(" + parameters + ")";
+            std::string result = mNamespace + "::" + mName + " " + objName;
+
+            if(! parameters.empty() )
+                result += "( " + parameters + ")";
+
+            return result;
+        }
+
+        std::string Class::asSourceFileName() const
+        {
+            std::string nameLower = mName;
+            std::transform(nameLower.begin(), nameLower.end(), nameLower.begin(), ::tolower);
+
+            return nameLower + ".cpp";
+        }
+
+        std::string Class::asHeaderFileName() const
+        {
+            std::string nameLower = mName;
+            std::transform(nameLower.begin(), nameLower.end(), nameLower.begin(), ::tolower);
+
+            return nameLower + ".h";
+        }
+
+        std::string Class::asSingletonName() const
+        {
+            std::string singletonName = mName;
+            std::transform(mName.begin(), mName.begin() + 1, singletonName.begin(), ::tolower);
+
+            return singletonName;
         }
     }
 }

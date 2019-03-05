@@ -85,13 +85,21 @@ namespace kpl {
             bool operator>(const Class& classData) const;
 
             /* Source Code Generators */
-            std::string singletonNameCode() const;
-            std::string fileGuardCode() const;
+
+            std::string asHeaderFileGuard() const;
+
             std::string singletonInstanciationCode() const;
             std::string objectInstanciationCode(const std::string& parameters = "") const;
             std::string objectInstanciationCode(const std::string& objName, const std::string& parameters = "") const;
             std::string includeDirectiveCode( const std::string& pathPrefix = "" ) const;
             std::string singletonAssignmentCode(std::string instanceName = "") const;
+
+            /* All lowercase + .cpp */
+            std::string asSourceFileName() const;
+            /* All lowercase + .h */
+            std::string asHeaderFileName() const;
+            /* Lowers the first letter */
+            std::string asSingletonName() const;
 
         private:
             std::string mName;

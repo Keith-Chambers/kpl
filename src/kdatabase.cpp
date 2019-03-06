@@ -118,7 +118,7 @@ namespace kpl {
             // Remove trailing comma
             statement.erase( statement.end() - 1 );
 
-            statement += " FROM " + tableName + " ";
+            statement += " FROM " + tableName + " WHERE ";
 
             for(const WhereClause& whereClause : whereClauses)
                 statement += whereClause.toString() + " AND ";

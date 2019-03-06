@@ -108,6 +108,19 @@ namespace kpl {
             return 0;
         }
 
+        bool insertIfUnique(sqlite3 * database, const std::string& tableName, const std::vector<std::pair<std::string, std::string>>& parameters)
+        {
+            std::vector<WhereClause> whereClauses;
+
+            for(const std::pair<std::string, std::string>& parameter : parameters)
+                whereClauses.push_back( WhereClause::makeEqualsClause(parameter.first, parameter.second) );
+
+            if(count(database, tableName, whereClauses) > 0)
+                return true;
+
+            return insertInto(database, tableName, parameters);
+        }
+
         bool insertInto(sqlite3 * database, const std::string& tableName, const std::vector<std::pair<std::string, std::string>>& parameters)
         {
             if(parameters.size() == 0 || database == nullptr || tableName.empty())

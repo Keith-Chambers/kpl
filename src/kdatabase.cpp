@@ -33,6 +33,10 @@ namespace kpl {
 
         int countResultsCallback(void *data, int argc, char **argv, char **azColName)
         {
+            (void)argc;
+            (void)argv;
+            (void)azColName;
+
             int * count = static_cast<int*>(data);
             (*count)++;
 
@@ -45,10 +49,10 @@ namespace kpl {
 
             for(const WhereClause& whereClause : whereClauses)
             {
-                sqlCommand += whereClause.toString() + " && ";
+                sqlCommand += whereClause.toString() + "AND ";
             }
 
-            sqlCommand = sqlCommand.erase(sqlCommand.size() - 3);
+            sqlCommand = sqlCommand.erase(sqlCommand.size() - 4);
             sqlCommand += ";";
 
 

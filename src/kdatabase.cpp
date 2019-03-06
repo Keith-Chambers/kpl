@@ -104,8 +104,48 @@ namespace kpl {
             return true;
         }
 
+        bool select( sqlite3 * database , const std::string& tableName, const std::vector<std::string>& selectFields,
+                     int (*callback)(void*,int,char**,char**), void *callbackData, const std::vector<WhereClause>& whereClauses )
+        {
+            if(database == nullptr || selectFields.empty() || whereClauses.empty())
+                return false;
+
+            std::string statement = "SELECT ";
+
+            for(const std::string& field : selectFields)
+                statement += field + ",";
+
+            // Remove trailing comma
+            statement.erase( statement.end() - 1 );
+
+            statement += " FROM " + tableName + " ";
+
+            for(const WhereClause& whereClause : whereClauses)
+                statement += whereClause.toString() + " AND ";
+
+            statement = statement.erase(statement.size() - 4); // Remove trailing AND
+            statement += ";";
+
+            std::cout << "Executing --> " << statement << std::endl;
+
+            char* errMessage;
+
+            int returnCode = sqlite3_exec(database, statement.c_str(), callback, callbackData, &errMessage);
+
+            if( returnCode != SQLITE_OK )
+            {
+                std::cout << "Error: Failed to select from " + tableName << std::endl;
+                std::cout << "Message --> " << errMessage << std::endl;
+                return false;
+            }
+
+            return true;
+        }
+
         int insertCallback(void *NotUsed, int argc, char **argv, char **azColName)
         {
+            (void)NotUsed;
+
             for(int i = 0; i < argc; i++)
                 printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
 

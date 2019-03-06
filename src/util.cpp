@@ -28,6 +28,11 @@ namespace kpl {
         return true;
     }
 
+    std::string Util::encloseQuotes(const std::string str)
+    {
+        return "'" + str + "'";
+    }
+
     std::string Util::makeStringUpper(std::string str)
     {
         for(size_t i = 0; i < str.size(); i++)

@@ -28,6 +28,7 @@ namespace kpl {
         static std::string upperFirstChar(std::string str);
         static std::string makeStringUpper(std::string str);
         static std::string makeStringLower(std::string str);
+        static std::string encloseQuotes(const std::string str);
 
         template <typename T>
         static bool uniquePushBack(std::vector<T> vec, const T& value)

@@ -25,6 +25,11 @@ namespace kpl {
             return false;
         }
 
+        const kpl::reflection::DataType& Function::returnDataType() const
+        {
+            return mReturnValue;
+        }
+
         bool Function::operator==(const Function& func) const
         {
             return mReturnValue.name() == func.returnValueString() && parameterListString() == func.parameterListString();

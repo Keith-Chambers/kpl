@@ -54,6 +54,11 @@ namespace kpl {
                                 passedParameterString );    /* 3 */
         }
 
+        const kpl::reflection::DataType& MemberFunction::returnDataType() const
+        {
+            return mFunction.returnDataType();
+        }
+
         std::string MemberFunction::qualifiedName() const
         {
             return mClass.classNamespace() + "::" + mClass.name() + "." + mFunction.name();

@@ -40,6 +40,7 @@ namespace kpl {
 
             const kpl::reflection::AccessModifier& accessModifier() const;
             const std::string& accessModifierString() const;
+            const kpl::reflection::DataType& returnDataType() const;
 
         private:
             const kpl::reflection::Class& mClass;

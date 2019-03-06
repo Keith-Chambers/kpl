@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <ostream>
 
 #include "kpl/datatype.h"
 #include "kpl/variable.h"
@@ -22,6 +23,12 @@ namespace kpl {
             std::string name() const;
             std::string returnValueString() const;
             std::string parameterListString() const;
+
+            const kpl::reflection::DataType& returnDataType() const;
+
+            //std::string invocationCode(const std::string& parameters = "") const;
+            //std::string definitionCode(const std::string& body) const;
+            //std::string declarationCode() const;
 
             bool operator==(const Function& func) const;
             bool operator!=(const Function& func) const;

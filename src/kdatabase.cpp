@@ -16,39 +16,17 @@ namespace kpl {
             return nullptr;
         }
 
-        // TODO: Doesn't work with multiple CREATE TABLE statements
         bool createDatabaseTablesFromFile(sqlite3 * database, std::string filePath)
         {
             std::string createSqlString = kpl::loadTextFile(filePath);
 
             std::cout << "Executing --> " + createSqlString << std::endl;
 
-            sqlite3_stmt * statement;
-            const char * unused = nullptr;
-
-            int rc = sqlite3_prepare_v2(database,
-                                        createSqlString.c_str(),
-                                        static_cast<int>(createSqlString.size()) + 1,
-                                        &statement,
-                                        &unused);
-            if(rc != SQLITE_OK)
+            if(SQLITE_OK != sqlite3_exec(database, createSqlString.c_str(), nullptr, nullptr, nullptr))
             {
-                std::cout << "Failed to prepare DB command" << std::endl;
+                std::cout << "Failed to execute sql" << std::endl;
                 return false;
             }
-
-            do {
-                rc = sqlite3_step(statement);
-            } while( rc == SQLITE_ROW );
-
-
-            if(rc != SQLITE_DONE)
-            {
-                std::cout << "Failed to execute create DB command" << std::endl;
-                return false;
-            }
-
-            sqlite3_finalize(statement);
 
             return true;
         }

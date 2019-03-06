@@ -31,6 +31,44 @@ namespace kpl {
             return true;
         }
 
+        int countResultsCallback(void *data, int argc, char **argv, char **azColName)
+        {
+            int * count = static_cast<int*>(data);
+            (*count)++;
+
+            return 0;
+        }
+
+        int count(sqlite3 * database, const std::string& tableName, const std::vector<WhereClause>& whereClauses)
+        {
+            std::string sqlCommand = "SELECT * FROM " + tableName + " WHERE ";
+
+            for(const WhereClause& whereClause : whereClauses)
+            {
+                sqlCommand += whereClause.toString() + " && ";
+            }
+
+            sqlCommand = sqlCommand.erase(sqlCommand.size() - 3);
+            sqlCommand += ";";
+
+
+            std::cout << "Executing --> " << sqlCommand << std::endl;
+
+            char* errMessage;
+            int count = 0;
+
+            int returnCode = sqlite3_exec(database, sqlCommand.c_str(), countResultsCallback, &count, &errMessage);
+
+            if( returnCode != SQLITE_OK )
+            {
+                std::cout << "Error: Count failed " + tableName << std::endl;
+                std::cout << "Message --> " << errMessage << std::endl;
+                return false;
+            }
+
+            return count;
+        }
+
         bool select(sqlite3 * database, const std::string& tableName, const std::vector<std::string>& selectFields, int (*callback)(void*,int,char**,char**), void* callbackData)
         {
             if(database == nullptr || selectFields.empty())

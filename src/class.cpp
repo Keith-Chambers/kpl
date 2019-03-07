@@ -43,6 +43,11 @@ namespace kpl {
             return mName;
         }
 
+        std::string Class::qualifiedName() const
+        {
+            return mNamespace + "::" + mName;
+        }
+
         bool Class::addVariable( kpl::reflection::Variable variable, kpl::reflection::AccessModifier accessModifier, bool isStatic )
         {
             if( containsVariable( variable.name() ))

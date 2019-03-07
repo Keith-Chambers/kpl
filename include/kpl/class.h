@@ -78,6 +78,7 @@ namespace kpl {
 
             const std::string& classNamespace() const;
             const std::string& name() const;
+            std::string qualifiedName() const;
 
             bool operator==(const Class& classData) const;
             bool operator!=(const Class& classData) const;

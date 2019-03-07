@@ -48,20 +48,20 @@ namespace kpl {
             (void)numCols;
             (void)rowHeadings;
 
-            int * result = static_cast<int*>(data);
-            *result = std::atoi( *(rowVals + 0) );
+            uint16_t * result = static_cast<uint16_t*>(data);
+            *result = static_cast<uint16_t>(std::atoi( *(rowVals + 0) ));
 
             return 0;
         }
 
-        int tableRowCount(sqlite3 * database, const std::string& tableName)
+        uint16_t tableRowCount(sqlite3 * database, const std::string& tableName)
         {
             std::string sqlCommand = "COUNT(id) FROM " + tableName + ";";
 
             std::cout << "Executing --> " << sqlCommand << std::endl;
 
             char* errMessage;
-            int count = 0;
+            uint16_t count = 0;
 
             int returnCode = sqlite3_exec(database, sqlCommand.c_str(), selectCountCallback, &count, &errMessage);
 

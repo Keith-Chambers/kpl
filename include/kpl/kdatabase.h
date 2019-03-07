@@ -55,6 +55,8 @@ namespace kpl
                                           , std::string filePath
                                           );
 
+        int tableRowCount(const std::string& tableName);
+
         bool insertInto(sqlite3 * database
                         , const std::string& tableName
                         , const std::vector<std::pair<std::string, std::string>>& parameters

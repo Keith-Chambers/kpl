@@ -43,6 +43,38 @@ namespace kpl {
             return 0;
         }
 
+        int selectCountCallback(void *data, int numCols, char **rowVals, char **rowHeadings)
+        {
+            (void)numCols;
+            (void)rowHeadings;
+
+            int * result = static_cast<int*>(data);
+            *result = std::atoi( *(rowVals + 0) );
+
+            return 0;
+        }
+
+        int tableRowCount(sqlite3 * database, const std::string& tableName)
+        {
+            std::string sqlCommand = "COUNT(id) FROM " + tableName + ";";
+
+            std::cout << "Executing --> " << sqlCommand << std::endl;
+
+            char* errMessage;
+            int count = 0;
+
+            int returnCode = sqlite3_exec(database, sqlCommand.c_str(), selectCountCallback, &count, &errMessage);
+
+            if( returnCode != SQLITE_OK )
+            {
+                std::cout << "Error: Count failed " + tableName << std::endl;
+                std::cout << "Message --> " << errMessage << std::endl;
+                return false;
+            }
+
+            return count;
+        }
+
         int count(sqlite3 * database, const std::string& tableName, const std::vector<WhereClause>& whereClauses)
         {
             std::string sqlCommand = "SELECT * FROM " + tableName + " WHERE ";

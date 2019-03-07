@@ -32,12 +32,12 @@ namespace kpl {
 
         bool Function::operator==(const Function& func) const
         {
-            return mReturnValue.name() == func.returnValueString() && parameterListString() == func.parameterListString();
+            return mName == func.name() && mReturnValue.name() == func.returnValueString() && parameterListString() == func.parameterListString();
         }
 
         bool Function::operator!=(const Function& func) const
         {
-            return mReturnValue.name() != func.returnValueString() || parameterListString() != func.parameterListString();
+            return mName != func.name() || mReturnValue.name() != func.returnValueString() || parameterListString() != func.parameterListString();
         }
 
         bool Function::operator<(const Function& func) const

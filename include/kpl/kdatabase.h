@@ -82,7 +82,7 @@ namespace kpl
                     , const std::vector<WhereClause>& whereClauses
                     );
 
-        int count(sqlite3 * database, const std::string& tableName, const std::vector<WhereClause>& whereClauses);
+        uint16_t count(sqlite3 * database, const std::string& tableName, const std::vector<WhereClause>& whereClauses);
     }
 }
 

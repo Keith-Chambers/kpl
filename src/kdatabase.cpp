@@ -75,9 +75,9 @@ namespace kpl {
             return count;
         }
 
-        int count(sqlite3 * database, const std::string& tableName, const std::vector<WhereClause>& whereClauses)
+        uint16_t count(sqlite3 * database, const std::string& tableName, const std::vector<WhereClause>& whereClauses)
         {
-            std::string sqlCommand = "SELECT * FROM " + tableName + " WHERE ";
+            std::string sqlCommand = "COUNT(*) FROM " + tableName + " WHERE ";
 
             for(const WhereClause& whereClause : whereClauses)
             {
@@ -91,9 +91,9 @@ namespace kpl {
             std::cout << "Executing --> " << sqlCommand << std::endl;
 
             char* errMessage;
-            int count = 0;
+            uint16_t count = 0;
 
-            int returnCode = sqlite3_exec(database, sqlCommand.c_str(), countResultsCallback, &count, &errMessage);
+            int returnCode = sqlite3_exec(database, sqlCommand.c_str(), selectCountCallback, &count, &errMessage);
 
             if( returnCode != SQLITE_OK )
             {

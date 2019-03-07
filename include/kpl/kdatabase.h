@@ -55,8 +55,6 @@ namespace kpl
                                           , std::string filePath
                                           );
 
-        uint16_t tableRowCount(const std::string& tableName);
-
         bool insertInto(sqlite3 * database
                         , const std::string& tableName
                         , const std::vector<std::pair<std::string, std::string>>& parameters
@@ -82,7 +80,7 @@ namespace kpl
                     , const std::vector<WhereClause>& whereClauses
                     );
 
-        uint16_t count(sqlite3 * database, const std::string& tableName, const std::vector<WhereClause>& whereClauses);
+        int count(sqlite3 * database, const std::string& tableName, const std::vector<WhereClause>& whereClauses = {});
     }
 }
 

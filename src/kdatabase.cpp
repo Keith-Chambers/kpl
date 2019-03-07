@@ -31,18 +31,6 @@ namespace kpl {
             return true;
         }
 
-        int countResultsCallback(void *data, int argc, char **argv, char **azColName)
-        {
-            (void)argc;
-            (void)argv;
-            (void)azColName;
-
-            int * count = static_cast<int*>(data);
-            (*count)++;
-
-            return 0;
-        }
-
         int selectCountCallback(void *data, int numCols, char **rowVals, char **rowHeadings)
         {
             (void)numCols;
@@ -54,44 +42,26 @@ namespace kpl {
             return 0;
         }
 
-        uint16_t tableRowCount(sqlite3 * database, const std::string& tableName)
+        int count(sqlite3 * database, const std::string& tableName, const std::vector<WhereClause>& whereClauses)
         {
-            std::string sqlCommand = "COUNT(id) FROM " + tableName + ";";
+            std::string sqlCommand = "SELECT COUNT(*) FROM " + tableName;
 
-            std::cout << "Executing --> " << sqlCommand << std::endl;
-
-            char* errMessage;
-            uint16_t count = 0;
-
-            int returnCode = sqlite3_exec(database, sqlCommand.c_str(), selectCountCallback, &count, &errMessage);
-
-            if( returnCode != SQLITE_OK )
+            if(! whereClauses.empty())
             {
-                std::cout << "Error: Count failed " + tableName << std::endl;
-                std::cout << "Message --> " << errMessage << std::endl;
-                return false;
+                sqlCommand += " WHERE ";
+
+                for(const WhereClause& whereClause : whereClauses)
+                    sqlCommand += whereClause.toString() + " AND ";
+
+                sqlCommand = sqlCommand.erase(sqlCommand.size() - 4);
             }
 
-            return count;
-        }
-
-        uint16_t count(sqlite3 * database, const std::string& tableName, const std::vector<WhereClause>& whereClauses)
-        {
-            std::string sqlCommand = "COUNT(*) FROM " + tableName + " WHERE ";
-
-            for(const WhereClause& whereClause : whereClauses)
-            {
-                sqlCommand += whereClause.toString() + " AND ";
-            }
-
-            sqlCommand = sqlCommand.erase(sqlCommand.size() - 4);
             sqlCommand += ";";
 
-
             std::cout << "Executing --> " << sqlCommand << std::endl;
 
             char* errMessage;
-            uint16_t count = 0;
+            int count = 0;
 
             int returnCode = sqlite3_exec(database, sqlCommand.c_str(), selectCountCallback, &count, &errMessage);
 
@@ -99,7 +69,7 @@ namespace kpl {
             {
                 std::cout << "Error: Count failed " + tableName << std::endl;
                 std::cout << "Message --> " << errMessage << std::endl;
-                return false;
+                return -1;
             }
 
             return count;

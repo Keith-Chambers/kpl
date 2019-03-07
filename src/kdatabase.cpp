@@ -49,7 +49,7 @@ namespace kpl {
 
             for(const WhereClause& whereClause : whereClauses)
             {
-                sqlCommand += whereClause.toString() + "AND ";
+                sqlCommand += whereClause.toString() + " AND ";
             }
 
             sqlCommand = sqlCommand.erase(sqlCommand.size() - 4);

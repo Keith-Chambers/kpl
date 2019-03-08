@@ -65,6 +65,9 @@ namespace kpl {
             bool containsMethod( const std::string& name, const uint8_t decorationMask ) const;
 
             std::optional<kpl::reflection::MemberFunction> getMethod( const std::string& name ) const;
+            kpl::reflection::MemberFunction * getMethodPtr( const std::string& name );
+            const kpl::reflection::MemberFunction * getMethodPtr( const std::string& name ) const;
+
             std::optional<kpl::reflection::MemberVariable> getVariable( const std::string& name ) const;
 
             std::vector<kpl::reflection::MemberFunction> getMethods( const uint8_t decorationMask ) const;

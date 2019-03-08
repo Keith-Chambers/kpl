@@ -119,6 +119,24 @@ namespace kpl {
             return std::nullopt;
         }
 
+        kpl::reflection::MemberFunction * Class::getMethodPtr( const std::string& name )
+        {
+            for( kpl::reflection::MemberFunction& memFunc : mMethods )
+                if( memFunc.funcData().name() == name )
+                    return &memFunc;
+
+            return nullptr;
+        }
+
+        const kpl::reflection::MemberFunction * Class::getMethodPtr( const std::string& name ) const
+        {
+            for( const kpl::reflection::MemberFunction& memFunc : mMethods )
+                if( memFunc.funcData().name() == name )
+                    return &memFunc;
+
+            return nullptr;
+        }
+
         std::optional<kpl::reflection::MemberVariable> Class::getVariable( const std::string& name ) const
         {
             for( const kpl::reflection::MemberVariable& memVar : mVariables )

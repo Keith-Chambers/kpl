@@ -77,8 +77,17 @@ namespace kpl {
 
         bool select(sqlite3 * database, const std::string& tableName, const std::vector<std::string>& selectFields, int (*callback)(void*,int,char**,char**), void* callbackData)
         {
-            if(database == nullptr || selectFields.empty())
+            if(database == nullptr)
+            {
+                std::cout << "Error: database handle passed to select is null" << std::endl;
                 return false;
+            }
+
+            if(selectFields.empty())
+            {
+                std::cout << "Error: No select fields passed to select statement" << std::endl;
+                return false;
+            }
 
             std::string statement = "SELECT ";
 
@@ -109,8 +118,23 @@ namespace kpl {
         bool select( sqlite3 * database , const std::string& tableName, const std::vector<std::string>& selectFields,
                      int (*callback)(void*,int,char**,char**), void *callbackData, const std::vector<WhereClause>& whereClauses )
         {
-            if(database == nullptr || selectFields.empty() || whereClauses.empty())
+            if(database == nullptr)
+            {
+                std::cout << "Error: database handle passed to select is null" << std::endl;
                 return false;
+            }
+
+            if(selectFields.empty())
+            {
+                std::cout << "Error: No select fields passed to select statement" << std::endl;
+                return false;
+            }
+
+            if(whereClauses.empty())
+            {
+                std::cout << "Error: Empty whereClause array passed to select statement" << std::endl;
+                return false;
+            }
 
             std::string statement = "SELECT ";
 

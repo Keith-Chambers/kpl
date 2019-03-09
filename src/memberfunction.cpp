@@ -61,7 +61,7 @@ namespace kpl {
 
         std::string MemberFunction::qualifiedName() const
         {
-            return mClass.classNamespace() + "::" + mClass.name() + "." + mFunction.name();
+            return mClass.classNamespace() + "::" + mClass.name() + "::" + mFunction.name();
         }
 
         bool MemberFunction::operator==(const MemberFunction& memFunc) const

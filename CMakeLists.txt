@@ -48,11 +48,11 @@ if(TESTS_PATH)
                     ${TESTS_PATH}/testIDGenerator.cpp
                     )
 
+    target_include_directories(${TEST_PROJECT} PRIVATE ${CMAKE_SOURCE_DIR}/include/)
+    
     target_link_libraries(${TEST_PROJECT} ${STATIC_LIB_NAME})
+    target_link_libraries(${TEST_PROJECT} "${CMAKE_SOURCE_DIR}/libs/libfmt.a")
 
-    target_link_libraries(${TEST_PROJECT} "-lfmt")
-
-    target_include_directories(${TEST_PROJECT} PRIVATE ${INCLUDE_PATH})
 endif(TESTS_PATH)
 
 # Probably have to do more linking

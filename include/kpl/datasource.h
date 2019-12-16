@@ -3,7 +3,6 @@
 
 namespace kpl
 {
-
     class DataSource
     {
     public:

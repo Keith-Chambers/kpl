@@ -3,9 +3,9 @@
 #include <string>
 #include <iostream>
 
-#include <kpl/datatype.h>
-#include <kpl/function.h>
-#include <kpl/variable.h>
+#include <kpl/reflection/datatype.h>
+#include <kpl/reflection/function.h>
+#include <kpl/reflection/variable.h>
 
 TEST_CASE( "kpl::Function Tests", "[Something]" )
 {

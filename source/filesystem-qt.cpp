@@ -129,7 +129,7 @@ namespace filesystem {
         return QDir(full_path).exists();
     }
 
-    std::optional<DirectoryPath> DirectoryPath::make(QString path)
+    std::optional<DirectoryPath> DirectoryPath::make(const QString& path)
     {
         if(!kpl::filesystem::isValidFilePath(path)) {
             return std::nullopt;
@@ -138,7 +138,7 @@ namespace filesystem {
         return std::optional<DirectoryPath>(DirectoryPath(QDir(path).absolutePath()));
     }
 
-    DirectoryPath::DirectoryPath(QString full_path)
+    DirectoryPath::DirectoryPath(const QString& full_path)
         : m_absolute_path{ full_path }
     {}
 
@@ -161,7 +161,16 @@ namespace filesystem {
         return m_absolute_path;
     }
 
-    std::optional<kpl::filesystem::DirectoryPath> DirectoryPath::make(kpl::filesystem::DirectoryPath dir, const RelativePath& relative_path)
+    std::optional<DirectoryPath> DirectoryPath::make(const AbsolutePath& path)
+    {
+        if(!path.isFolder()) {
+            return std::nullopt;
+        }
+
+        return std::optional<DirectoryPath>( { path.fullPath() } );
+    }
+
+    std::optional<kpl::filesystem::DirectoryPath> DirectoryPath::make(const kpl::filesystem::DirectoryPath& dir, const RelativePath& relative_path)
     {
         return DirectoryPath::make( concatPaths(dir.absolutePath(), relative_path.path()) );
     }
@@ -192,7 +201,7 @@ namespace filesystem {
         return file_name;
     }
 
-    FileIdentifier::FileIdentifier(DirectoryPath dir_path, QString file_name)
+    FileIdentifier::FileIdentifier(const DirectoryPath& dir_path, const QString& file_name)
         : m_file_directory{ dir_path }, m_file_name{ file_name }
     {}
 
@@ -214,7 +223,7 @@ namespace filesystem {
         return std::optional<FileIdentifier>(FileIdentifier(file_directory_opt.value(), file_name));
     }
 
-    std::optional<FileIdentifier> FileIdentifier::make(DirectoryPath dir_path, QString file_name)
+    std::optional<FileIdentifier> FileIdentifier::make(const DirectoryPath& dir_path, const QString& file_name)
     {
         if(!fileExists(QDir(dir_path.absolutePath()), file_name)) {
             return std::nullopt;
@@ -223,27 +232,27 @@ namespace filesystem {
         return std::optional<FileIdentifier>(FileIdentifier(dir_path, file_name));
     }
 
-    QString FileIdentifier::absolutePath()
+    QString FileIdentifier::absolutePath() const
     {
         return m_file_directory.absolutePath() + "/" + m_file_name;
     }
 
-    QString FileIdentifier::directoryAbsolutePath()
+    QString FileIdentifier::directoryAbsolutePath() const
     {
         return m_file_directory.absolutePath();
     }
 
-    QString FileIdentifier::rootName()
+    QString FileIdentifier::rootName() const
     {
         return m_file_name.split('/').back().split('.').front();
     }
 
-    QString FileIdentifier::fullName()
+    QString FileIdentifier::fullName() const
     {
         return m_file_name;
     }
 
-    QString FileIdentifier::extensionName()
+    QString FileIdentifier::extensionName() const
     {
         return m_file_name.split('.').back();
     }
@@ -270,8 +279,8 @@ namespace filesystem {
 
 } // End filesystem
 
-    u32 countFilesInDirectoryRecursive(  kpl::Directory directory,
-                                kpl::List<QString> name_filters)
+    u32 countFilesInDirectoryRecursive(     const kpl::Directory& directory,
+                                            const kpl::List<QString>& name_filters)
     {
         u32 result = 0;
         QDirIterator itr(directory.absolutePath(), QDir::Dirs | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
@@ -288,7 +297,7 @@ namespace filesystem {
         return result;
     }
 
-    QList<kpl::filesystem::FileIdentifier> findFilesInDirectoryRecursive(QDir directory, QStringList name_filters)
+    QList<kpl::filesystem::FileIdentifier> findFilesInDirectoryRecursive(const QDir& directory, const QStringList& name_filters)
     {
         kpl::List<kpl::filesystem::FileIdentifier> files_found;
         QDirIterator itr(directory.absolutePath(), QDir::Dirs | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);

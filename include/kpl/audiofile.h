@@ -1,5 +1,5 @@
-#ifndef AUDIOFILE_H
-#define AUDIOFILE_H
+#ifndef KPL_AUDIOFILE_H
+#define KPL_AUDIOFILE_H
 
 #include <kpl/core.h>
 #include <kpl/filesystem.h>
@@ -39,4 +39,4 @@ namespace kpl
 }
 
 
-#endif // AUDIOFILE_H
+#endif // KPL_AUDIOFILE_H

@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(kpl)
 
 set(KPL_USE_QT true)
-unset(KPL_USE_QT)
+#unset(KPL_USE_QT)
 
 if(KPL_USE_QT)
     add_compile_definitions(KPL_USE_QT=1)
@@ -20,6 +20,15 @@ set(LIB_NAME ${PROJECT_NAME})
 set(STATIC_LIB_NAME ${PROJECT_NAME}_static)
 set(EXTERNAL_PATH ${CMAKE_SOURCE_DIR}/external)
 set(BENCHMARK_PROJECT benchmarks)
+
+set(INCLUDE_PATHS
+        ${INCLUDE_PATH}
+        ${EXTERNAL_PATH}
+        ${EXTERNAL_PATH}/taglib/
+        ${EXTERNAL_PATH}/taglib/toolkit/
+        ${EXTERNAL_PATH}/taglib/mpeg/id3v2/
+)
+
 
 set(LIB_PATH ${CMAKE_SOURCE_DIR}/lib)
 set(BIN_PATH ${CMAKE_SOURCE_DIR}/bin)
@@ -47,6 +56,9 @@ set(SOURCES
     ${SOURCE_PATH}/logger.cpp
     ${SOURCE_PATH}/util.cpp
     ${SOURCE_PATH}/idgenerator.cpp
+    ${SOURCE_PATH}/algorithm.cpp
+    ${SOURCE_PATH}/string.cpp
+    ${SOURCE_PATH}/audiofile.cpp
 #    ${SOURCE_PATH}/filesystem-qt.cpp
 )
 
@@ -66,16 +78,16 @@ endif()
 # Core shared object lib
 add_library(${LIB_NAME} SHARED ${SOURCES})
 
-target_include_directories(${LIB_NAME} PRIVATE ${INCLUDE_PATH})
-target_include_directories(${LIB_NAME} PRIVATE ${EXTERNAL_PATH})
+target_include_directories(${LIB_NAME} PRIVATE ${INCLUDE_PATHS})
+#target_include_directories(${LIB_NAME} PRIVATE ${EXTERNAL_PATH})
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BUILD_PATH})
 
 # Core static lib
 add_library(${STATIC_LIB_NAME} STATIC ${SOURCES})
 
-target_include_directories(${STATIC_LIB_NAME} PRIVATE ${INCLUDE_PATH})
-target_include_directories(${STATIC_LIB_NAME} PRIVATE ${EXTERNAL_PATH})
+target_include_directories(${STATIC_LIB_NAME} PRIVATE ${INCLUDE_PATHS})
+#target_include_directories(${STATIC_LIB_NAME} PRIVATE ${EXTERNAL_PATH})
             
 # reflection module
 add_library(${RELECTION_LIB_NAME} STATIC ${REFLECTION_SOURCES})

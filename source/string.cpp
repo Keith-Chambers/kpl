@@ -27,14 +27,14 @@ kpl::String trimEnd(const kpl::String& string, kpl::Char remove_char)
 
     for(kpl::String::const_reverse_iterator reverse_itr = result.rend(); reverse_itr != sentinal; reverse_itr++ )
     {
-        if(*reverse_itr == remove_char) {
+        if(*reverse_itr != remove_char) {
             break;
         }
 
         truncate++;
     }
 
-    result.truncate(truncate);
+    result.truncate(string.size() - truncate);
 
     return result;
 }
@@ -46,14 +46,14 @@ kpl::String& trimEndMut(kpl::String& string, kpl::Char remove_char)
 
     for(kpl::String::reverse_iterator reverse_itr = string.rend(); reverse_itr != sentinal; reverse_itr++ )
     {
-        if(*reverse_itr == remove_char) {
+        if(*reverse_itr != remove_char) {
             break;
         }
 
         truncate++;
     }
 
-    string.truncate(truncate);
+    string.truncate(string.size() - truncate);
 
     return string;
 }

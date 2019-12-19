@@ -18,6 +18,7 @@ using i64 = int64_t;
 
 #if(KPL_USE_QT)
 
+    #include <QDebug>
     #include <QString>
     #include <QDir>
     #include <QDirIterator>
@@ -53,11 +54,18 @@ namespace kpl
     class ContinguousMemory
     {
     public:
-        ContinguousMemory(u8 *memory, u32 size_bytes);
+        ContinguousMemory(u8 *memory, u32 size_bytes)
+            : m_memory_start {memory}, m_size_bytes {size_bytes}, m_flags {0}
+        {}
 
-        static ContinguousMemory nullMemory();
+        static ContinguousMemory nullMemory()
+        {
+            return ContinguousMemory { nullptr, 0};
+        }
 
-        bool isNull() const;
+        bool isNull() const {
+            return m_memory_start == nullptr;
+        }
 //    private:
         u8* m_memory_start;
         u32 m_size_bytes;

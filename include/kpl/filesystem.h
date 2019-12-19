@@ -6,6 +6,7 @@
 
 #include <kpl/core.h>
 #include <kpl/string.h>
+#include <kpl/algorithm.h>
 
 namespace kpl {
 namespace filesystem
@@ -72,8 +73,7 @@ namespace filesystem
     class DirectoryPath
     {
     public:
-        // Note: Delete this probably
-        DirectoryPath(kpl::Directory dir);
+        DirectoryPath(const kpl::Directory& dir);
 
         static std::optional<DirectoryPath> make(const kpl::String& path);
         static std::optional<DirectoryPath> make(const AbsolutePath& path);

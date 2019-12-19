@@ -126,7 +126,16 @@ namespace filesystem {
 
     bool isValidFilePath(QString full_path)
     {
-        return QDir(full_path).exists();
+        qDebug() << "Testing dir exists : " << full_path;
+        bool exists = QDir(full_path).exists();
+
+        if(exists) {
+            qDebug() << "Exists";
+        } else {
+            qDebug() << "Doesn't exist";
+        }
+
+        return exists;
     }
 
     std::optional<DirectoryPath> DirectoryPath::make(const QString& path)
@@ -135,14 +144,16 @@ namespace filesystem {
             return std::nullopt;
         }
 
-        return std::optional<DirectoryPath>(DirectoryPath(QDir(path).absolutePath()));
+        qDebug() << "Making Dir Path";
+
+        return std::optional<DirectoryPath>({path});
     }
 
     DirectoryPath::DirectoryPath(const QString& full_path)
         : m_absolute_path{ full_path }
     {}
 
-    DirectoryPath::DirectoryPath(QDir dir)
+    DirectoryPath::DirectoryPath(const QDir& dir)
         : m_absolute_path{ dir.absolutePath() }
     {}
 
@@ -194,7 +205,7 @@ namespace filesystem {
     QString& withoutExtensionMut(QString& file_name)
     {
         u32 name_length = file_name.size();
-        u32 from_end = countElementsFromEnd({file_name.data(), name_length}, QChar{'.'});
+        u32 from_end = kpl::countElementsFromEnd<QChar>({file_name.data(), name_length}, QChar{'.'});
 
         file_name.remove(name_length - from_end, name_length);
 
@@ -208,19 +219,53 @@ namespace filesystem {
     std::optional<FileIdentifier> FileIdentifier::make(const QString& absolute_path)
     {
         QString file_name = absolute_path.split('/').back();
-        QString parent_directory_path = absolute_path.chopped(absolute_path.size() - file_name.size());
+        qDebug() << "File name : " << file_name;
+
+        QString parent_directory_path = absolute_path.left(absolute_path.size() - (file_name.size() + 1));
+        qDebug() << "Parsed Parent Path :" << parent_directory_path;
 
         std::optional<DirectoryPath> file_directory_opt = DirectoryPath::make(parent_directory_path);
 
+        qDebug() << "File directory got";
+
         if(file_directory_opt == std::nullopt) {
+            qDebug() << "Err: Failed to get file partent directory -> " << absolute_path.left(absolute_path.size() - (file_name.size() + 1));
             return std::nullopt;
         }
 
-        if(!fileExists(QDir(file_directory_opt.value().absolutePath()), file_name)) {
+        qDebug() << "File directory is valid";
+
+        QDir a_fucking_directory(file_directory_opt->absolutePath());
+
+        if(!fileExists(a_fucking_directory, file_name)) {
+            qDebug() << "File no exist";
             return std::nullopt;
         }
 
-        return std::optional<FileIdentifier>(FileIdentifier(file_directory_opt.value(), file_name));
+        qDebug() << "File exists";
+
+        return std::optional<FileIdentifier>({*file_directory_opt, file_name});
+
+//        qDebug() << "Entered!";
+
+//        if(!QFile(absolute_path).exists()) {
+//            qDebug() << "File doesn't exist (" << absolute_path << ")";
+//            return std::nullopt;
+//        }
+
+//        QString parent_path = QFile(absolute_path).
+
+//        std::optional<DirectoryPath> parent_directory_path_opt = DirectoryPath::make(kpl::forwardUntilLast(absolute_path, '/'));
+
+//        if(parent_directory_path_opt == std::nullopt) {
+//            qDebug() << "Failed to parse parent directory -> " << kpl::forwardUntilLast(absolute_path, '/');
+//            return std::nullopt;
+//        }
+
+//        QString file_name = kpl::backwardUntilFirst(absolute_path, '/');
+
+//        return std::optional<FileIdentifier>({*parent_directory_path_opt, file_name});
+
     }
 
     std::optional<FileIdentifier> FileIdentifier::make(const DirectoryPath& dir_path, const QString& file_name)

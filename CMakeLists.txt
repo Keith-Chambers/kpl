@@ -56,7 +56,7 @@ set(SOURCES
     ${SOURCE_PATH}/logger.cpp
     ${SOURCE_PATH}/util.cpp
     ${SOURCE_PATH}/idgenerator.cpp
-    ${SOURCE_PATH}/algorithm.cpp
+#    ${SOURCE_PATH}/algorithm.cpp
     ${SOURCE_PATH}/string.cpp
     ${SOURCE_PATH}/audiofile.cpp
 #    ${SOURCE_PATH}/filesystem-qt.cpp
